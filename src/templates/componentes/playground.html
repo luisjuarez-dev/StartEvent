@@ -1,0 +1,102 @@
+{% extends "base.html" %}
+{% import 'botones.html' as b %}
+{% from 'form_inputs.html' import input_texto, input_fecha, input_color, input_checkbox, input_combobox, tab, input_archivo %}
+{% set titulo = "Demo Componentes" %}
+{% block body %}
+  <main class="px-24 py-10">
+    <header>
+      <h1>Demo de componentes</h1>
+      <p>Esta es una página demo que muestra como se usan todos los componentes del sistema. Si se crean nuevos componentes deberían ser agregados aquí.</p>
+    </header>
+    <section>
+      <h2>Componentes de botones</h2>
+      <h3>Botones principales</h3>
+      <div class="flex h-full w-full items-center gap-2">
+        {{ b.boton(texto="Botón primario") }}
+        {{ b.boton(texto="Botón secundario", tipo="secundario") }}
+        {{ b.boton(texto="Botón submit", tipo="submit") }}
+        {{ b.boton(texto="Botón peligro", tipo="peligro") }}
+      </div>
+      <h3>Botones íconos</h3>
+      <ul class="list-disc">
+        <li><span>agregar: </span>{{ b.boton_icono(id="agregar") }}</li>
+        <li><span>editar: </span>{{ b.boton_icono(id="editar") }}</li>
+        <li><span>borrar: </span>{{ b.boton_icono(id="borrar") }}</li>
+        <li><span>descargar: </span>{{ b.boton_icono(id="descargar") }}</li>
+        <li><span>subir: </span>{{ b.boton_icono(id="subir") }}</li>
+        <li><span>ver: </span>{{ b.boton_icono(id="ver") }}</li>
+        <li><span>cerrar: </span>{{ b.boton_icono(id="cerrar") }}</li>
+        <li><span>copiar: </span>{{ b.boton_icono(id="copiar") }}</li>
+        <li><span>flecha-derecha: </span>{{ b.boton_icono(id="flecha-derecha") }}</li>
+        <li><span>flecha-izquierda: </span>{{ b.boton_icono(id="flecha-izquierda") }}</li>
+        <li><span>archivo: </span>{{ b.boton_icono(id="archivo") }}</li>
+        <li><span>menu: </span>{{ b.boton_icono(id="menu") }}</li>
+        <li><span>espacios: </span>{{ b.boton_icono(id="espacios") }}</li>
+        <li><span>cafe: </span>{{ b.boton_icono(id="cafe") }}</li>
+        <li><span>vista-previa: </span>{{ b.boton_icono(id="vista-previa") }}</li>
+        <li><span>verificado: </span>{{ b.boton_icono(id="verificado") }}</li>
+        <li><span>enviar-persona: </span>{{ b.boton_icono(id="enviar-persona") }}</li>
+        <li><span>crear-documento: </span>{{ b.boton_icono(id="crear-documento") }}</li>
+        <li><span>actualizar-documento: </span>{{ b.boton_icono(id="actualizar-documento") }}</li>
+        <li><span>usuario: </span>{{ b.boton_icono(id="usuario") }}</li>
+      </ul>
+    </section>
+    <section>
+      <h2>Componentes input de formulario</h2>
+      <div class="flex flex-col gap-2">
+        {{ input_texto(label="Input de texto", placeholder="Ingresa un texto") }}
+        <!-- IMPORTANTE: Se deben pasar los argumentos de fecha con el formato "aaaa-mm-dd" -->
+        {{ input_fecha(label="Input de fecha", min="2026-09-19") }}
+        {{ input_color(label="Input de color", name="input_color") }}
+        {{ input_checkbox(label="Checkbox") }}
+        <!--Simulación de una enumeración-->
+        {% set enumeracion = ["Primera opción :D", "Segunda opción :P", "Última opción :("] %}
+        {{ input_combobox(label="Input de opciones o combobox", lista_texto=enumeracion) }}
+        {{ input_archivo() }}
+      </div>
+      <hr>
+      {{ tab() }}
+      <section>
+        <fieldset class="rounded-md border border-borde-gris/50 p-2 w-fit h-fit">
+          <legend class="mx-3">Dia preferencial</legend>
+          {{ input_checkbox(label="26-Sep") }}
+          {{ input_checkbox(label="27-Sep") }}
+          {{ input_checkbox(label="28-Sep") }}
+          {{ input_checkbox(label="29-Sep") }}
+        </fieldset>
+        <label for="ice-cream-choice">
+          <p>Choose a flavor:</p>
+          <input class="border border-borde-gris" list="ice-cream-flavors" />
+          <datalist id="ice-cream-flavors">
+            <option value="Chocolate"></option>
+            <option value="Coconut"></option>
+            <option value="Mint"></option>
+            <option value="Strawberry"></option>
+            <option value="Vanilla"></option>
+          </datalist>
+        </label>
+        <dl>
+          Estados de actividades
+          <dt>Aceptada</dt>
+          <dd>
+            Un organizador aceptó la activididad dentro del simposio
+          </dd>
+          <dt>Cancelada</dt>
+          <dd>
+            Por algún motivo como que el ponente no puede asistir el dia de la actividad, se canceló la actividad y no será presentada
+          </dd>
+        </dl>
+        <details>
+          <summary>Menú escondido</summary>
+          <p>Aquí escondes secretos</p>
+          {{ input_texto(placeholder="Ingresa un texto") }}
+        </details>
+        <p class="text-xl">
+          La notación <ruby>Ruby<rt>de asia</rt></ruby> se usa para denotar significado
+        </p>
+        <p>H<sub>2</sub>0</p>
+        <p>x<sup>2</sup></p>
+      </section>
+    </section>
+  </main>
+{% endblock body %}

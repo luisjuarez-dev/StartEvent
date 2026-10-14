@@ -1,0 +1,35 @@
+{% from "componentes/form_inputs.html" import input_texto %}
+<div>
+  <h3 class="text-xl font-semibold text-white border-b border-white/30 pb-2 mb-4">Información de la actividad</h3>
+  <div class="mb-4">{{ input_texto(label="Nombre de la ponencia", required=true) }}</div>
+  <div class="mb-4">
+    <label for="resumen" class="block text-white font-medium mb-1">Resumen *</label>
+    <textarea id="resumen"
+              name="resumen"
+              rows="4"
+              required
+              maxlength="1500"
+              class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-[#66A5AD] bg-white"></textarea>
+    <p class="text-xs text-white/70 mt-1">Máximo 1500 caracteres.</p>
+  </div>
+  <div class="mb-4">
+    <label for="palabras_clave" class="block text-white font-medium mb-1">Palabras clave *</label>
+    <input type="text"
+           id="palabras_clave"
+           name="palabras_clave"
+           required
+           maxlength="150"
+           class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-[#66A5AD] bg-white">
+    <p class="text-xs text-white/70 mt-1">Máximo 150 caracteres.</p>
+  </div>
+  <div class="mb-4">
+    <label for="referencias" class="block text-white font-medium mb-1">Referencias (Formato IEEE) *</label>
+    <textarea id="referencias"
+              name="referencias"
+              rows="5"
+              required
+              maxlength="5000"
+              class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-[#66A5AD] bg-white"></textarea>
+    <p class="text-xs text-white/70 mt-1">Máximo 5000 caracteres.</p>
+  </div>
+</div>

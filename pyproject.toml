@@ -1,0 +1,68 @@
+[tool.ruff]
+line-length = 79
+
+#Reglas sobre el analisis de código de Python
+[tool.ruff.lint]
+
+#Reglas que se incluyen
+select = [
+    "ANN", 	#Tipado en las funciones
+    "FBT", 	#Booleanos en parametros
+    "B",	#Bugs comunes
+    "A",	#Sobreescribir nombres
+    "COM819",	#Coma inecesaria
+    "EM",	#Mensajes en excepciones
+    "FIX",	#Comentarios TODO
+    "F401", #Import sin usar
+    "ISC",	#Concatenacion de strings
+    "ICN",	#Nombres convencionales de imports
+    "PIE",	#Instrucciones inecesarias o repetidas
+    "T20",	#Print
+    "PT",	#Pytest
+    "Q",	#Comillas
+    "RET",	#Returns
+    "SIM",	#Simplificar flujo del programa
+    "TID252",	#Imports relativos
+    "TD",	#Comentarios TODO
+    "ARG",	#Argumentos sin usar
+    "PTH",	#Uso de Path
+    "FLY",	#Import
+    "I",	#Ordenar imports
+    "C90",	#Complejidad Mccabe
+    "N",	#Convenciones de nombres
+    "PERF",	#Listas y diccionarios
+    "E",	#Estilo de código, espacios e indentacion
+    "W",	#Espacios en blanco
+    "D",	#Estilo de docstrings
+    "PGH",	#Comentarios ignore, noqa3
+    "TRY",	#Try-except
+]
+
+#Reglas que se excluyen
+ignore = [
+    "EXE002",   #Todos los scripts deberian indicar la versión del compilador en la primera linea
+    "F821",     #Nombres no declarados, es necesario para definir el tipo de los modelos con strings
+    "RUF012",   #Valores por defecto en atributos de una clase, es necesario para importar la configuración de la aplicación con un objeto
+    "ICN003",   #Se tendria que usar evento_academico.EventoAcademico para todos los modelos
+    "TD003",    #Ligar un issue en un comentario TODO
+    "D203",     #Incompatible con D211, Docstrings de clases deben tener una linea en blanco antes
+    "D213",     #Incompatible con D212, Docstrings deben empezar en la misma línea que las comillas de apertura
+    ]
+
+#Reglas que se excluyen pero solo en un archivo específico
+[tool.ruff.lint.per-file-ignores]
+"src/inicializacion/base_datos.py" = ["F401"]   #Se necesitan los import aunque no se usen
+
+#Reglas sobre el analisis de código de HTML
+[tool.djlint]
+
+profile = "jinja"
+indent = 2
+max_line_length = 120
+include = [
+    "T002",     #Los nombres de archivos deben ser entre comillas
+]
+ignore = [
+    "H030",     #Debe haber una descripción meta
+    "H017",     #Las etiquetas void no se deben cerrar
+]

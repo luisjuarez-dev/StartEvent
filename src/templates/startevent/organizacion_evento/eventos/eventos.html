@@ -1,0 +1,30 @@
+{% import "componentes/tarjetas.html" as tarjetas %}
+{% extends "layout_vertical.html" %}
+{% block main %}
+  <header class="w-full flex justify-center">
+    <h1 class="h-fit">Eventos</h1>
+  </header>
+  <!-- Grid de tarjetas: 3 columnas, separación 48px, centrado -->
+  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-12 justify-items-center px-4 max-w-7xl mx-auto">
+    {% if usuario.es_administrador %}
+      {{ tarjetas.tarjeta_evento_nuevo() }}
+    {% endif %}
+    {% for evento in lista_eventos %}
+      {{ tarjetas.tarjeta_evento(evento) }}
+    {% endfor %}
+    {% if lista_eventos|length == 0 %}
+      <div class="col-span-full text-center py-12">
+        <p class="text-gray-500 text-lg">No hay eventos disponibles</p>
+        <p class="text-gray-400">¡Crea tu primer evento usando el botón "Nuevo evento"!</p>
+      </div>
+    {% endif %}
+  </div>
+  <!-- Imagen de fondo centrada -->
+  <figure aria-hidden="true"
+          class="fixed inset-0 -z-10 flex items-center justify-center opacity-10 pointer-events-none">
+    <img src="https://aspirantes-posgrado.uacm.edu.mx/public/img/chikauak.png"
+         alt=""
+         class="object-cover w-xl h-xl"
+         loading="lazy">
+  </figure>
+{% endblock main %}

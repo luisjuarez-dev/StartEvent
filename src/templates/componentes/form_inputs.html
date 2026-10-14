@@ -1,0 +1,122 @@
+{% set clases_input = "h-10 w-60 px-4 bg-white border border-borde-gris rounded-xl placeholder:text-placeholder group-hover:border-primario group-hover:border-2 transition duration-200 focus:outline-0 active:scale-95" %}
+{% macro input_texto(label, value="", placeholder="", required=false, importante=false) %}
+  <label class="block group h-fit {% if importante %}w-full{% else %}w-fit{% endif %}">
+    <p {% if importante %}class="font-medium mb-2 text-lg"{% endif %}>{{ label }}</p>
+    <input type="text"
+           class="bg-white border border-borde-gris rounded-xl placeholder:text-placeholder group-hover:border-primario group-hover:border-2 transition duration-200 focus:outline-0 active:scale-95
+           {% if importante %}h-12 w-full px-5{% else %}h-10 w-60 px-4{% endif %}"
+           {% if placeholder %}placeholder="{{ placeholder }}"{% endif %}
+           {% if value %}value="{{ value }}"{% endif %}
+           {% if required %}required{% endif %}>
+  </label>
+{% endmacro %}
+{% macro input_correo(label, placeholder="", required=false, name="", importante=false) %}
+  <label class="block group h-fit {% if importante %}w-full{% else %}w-fit{% endif %}">
+    <p {% if importante %}class="font-medium mb-2 text-lg"{% endif %}>{{ label }}</p>
+    <input type="email"
+           pattern="^[\w-_\.]+@[\w-_\.]+[\w-_]{2,4}$"
+           class="bg-white border border-borde-gris rounded-xl placeholder:text-placeholder group-hover:border-primario group-hover:border-2 transition duration-200 focus:outline-0 active:scale-95
+           {% if importante %}h-12 w-full px-5{% else %}h-10 w-60 px-4{% endif %}"
+           {% if name %}name="{{ name }}"{% endif %}
+           {% if placeholder %}placeholder="{{ placeholder }}"{% endif %}
+           {% if value %}value="{{ value }}"{% endif %}
+           {% if required %}required{% endif %}>
+  </label>
+{% endmacro %}
+{% macro input_password(label, required=false, name="", validacion=false, importante=false) %}
+  <label class="block group h-fit {% if importante %}w-full{% else %}w-fit{% endif %}">
+    <p {% if importante %}class="font-medium mb-2 text-lg"{% endif %}>{{ label }}</p>
+    <input type="password"
+           minlenght="8"
+           placeholder="********"
+           class="bg-white border border-borde-gris rounded-xl placeholder:text-placeholder group-hover:border-primario group-hover:border-2 transition duration-200 focus:outline-0 active:scale-95
+           {% if importante %}h-12 w-full px-5{% else %}h-10 w-60 px-4{% endif %}"
+           {% if name %}name="{{ name }}"{% endif %}
+           {% if validacion %}pattern="^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]$"{% endif %}
+           {% if required %}required{% endif %}>
+  </label>
+{% endmacro %}
+<!-- IMPORTANTE: Se deben pasar los argumentos de fecha con el formato "aaaa-mm-dd" -->
+{% macro input_fecha(label, value="", min="", max="") %}
+  <label class="block w-fit h-fit group">
+    <p>{{ label }}</p>
+    <input class="h-10 w-60 px-4 bg-white border border-borde-gris rounded-xl group-hover:border-primario group-hover:border-2 transition duration-200 focus:outline-0 active:scale-95 cursor-pointer"
+           type="date"
+           {% if min %}min="{{ min }}"{% endif %}
+           {% if max %}max="{{ max }}"{% endif %}
+           {% if value %}value="{{ value }}"{% endif %}>
+  </label>
+{% endmacro %}
+{% macro input_color(label, name, value="") %}
+  <label id="color_input" class="block w-fit h-fit group">
+    <p>{{ label }}</p>
+    <div class="flex items-center justify-center group">
+      <input hx-get="{{ url_for('componentes.color_actualiza_texto') }}"
+             hx-trigger="change"
+             hx-target="#color_input"
+             hx-swap="outerHTML"
+             hx-vals='{"label": "{{ label }}" }'
+             name="{{ name }}"
+             class="h-10 w-60 px-4 bg-white border border-borde-gris rounded-xl placeholder:text-placeholder group-hover:border-primario group-hover:border-2 transition duration-200 focus:outline-0 active:scale-95"
+             type="text"
+             placeholder="#FFFFFF"
+             pattern="^#[A-Fa-f0-9]{6}$"
+             {% if value %}value="{{ value }}"{% endif %}>
+      <input hx-get="{{ url_for('componentes.color_actualiza_texto') }}"
+             hx-trigger="change"
+             hx-target="#color_input"
+             hx-swap="outerHTML"
+             hx-vals='{"label": "{{ label }}" }'
+             name="{{ name }}"
+             class="-ml-11 h-9 w-9 z-10 group-active:scale-85 cursor-pointer"
+             type="color"
+             value="{% if value %}{{ value }}{% else %}#FF0000{% endif %}">
+    </div>
+  </label>
+{% endmacro %}
+{% macro input_archivo(label) %}
+  <label class="block w-fit h-fit group">
+    <p>{{ label }}</p>
+    <input class="{{ clases_input }}" type="file">
+  </label>
+{% endmacro %}
+{% macro input_checkbox(label, name, value) %}
+  <label class="flex items-center gap-2 cursor-pointer w-fit h-fit">
+    <input class="w-5 h-5 accent-blue-600 cursor-pointer"
+           type="checkbox"
+           name="{{ name }}"
+           value="{{ value }}">
+    {{ label }}
+  </label>
+{% endmacro %}
+{% macro input_combobox(label, lista_texto) %}
+  <label class="block w-fit h-fit group">
+    <p>{{ label }}</p>
+    <select class="{{ clases_input }} cursor-pointer">
+      <option disabled selected value="Default"></option>
+      {% for valor in lista_texto %}
+        <option>{{ valor }}</option>
+      {% endfor %}
+    </select>
+  </label>
+{% endmacro %}
+{% macro tab() %}
+  <fieldset class="flex w-fit h-fit rounded-t-md bg-secundario/50 border border-b-borde-gris border-x-0 border-t-0">
+    <label class="peer flex gap-2 py-2 px-4 rounded-t-md has-checked:bg-secundario-enfoque">
+      <input class="hidden" type="radio" name="radio-group">
+      <p>Pestaña 1</p>
+    </label>
+    <label class="peer flex gap-2 py-2 px-4 rounded-t-md has-checked:bg-secundario-enfoque">
+      <input class="hidden" type="radio" name="radio-group">
+      <p>Pestaña 2</p>
+    </label>
+    <label class="peer flex gap-2 py-2 px-4 rounded-t-md has-checked:bg-secundario-enfoque">
+      <input class="hidden" type="radio" name="radio-group">
+      <p>Pestaña 3</p>
+    </label>
+    <label class="peer flex gap-2 py-2 px-4 rounded-t-md has-checked:bg-secundario-enfoque">
+      <input class="hidden" type="radio" name="radio-group">
+      <p>Pestaña 4</p>
+    </label>
+  </fieldset>
+{% endmacro %}

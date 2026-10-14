@@ -1,0 +1,29 @@
+{% macro tarjeta_evento_nuevo() %}
+  <a href="#"
+     class="w-[405px] h-[208px] bg-white rounded-lg shadow-lg hover:shadow-2xl transition-shadow duration-300 overflow-hidden flex items-center border-2 border-dashed border-[#66A5AD]">
+    <!-- Contenedor del ícono con margen izquierdo de 3 (12px) -->
+    <div class="ml-3 flex-shrink-0">
+      <div class="flex items-center justify-center w-40 h-40 bg-[#66A5AD] bg-opacity-10 text-4xl text-[#66A5AD]"></div>
+    </div>
+    <div class="p-4">
+      <p class="font-bold text-gray-800">Nuevo evento</p>
+      <p class="text-sm text-gray-500">¡Empieza la gestión de un evento!</p>
+    </div>
+  </a>
+{% endmacro %}
+{% macro tarjeta_evento(evento) %}
+  <div hx-get="{{ url_for('startevent.eventos.mostrar_modal_evento') }}"
+       hx-target="#div-modal"
+       class="w-[405px] h-[208px] bg-white rounded-lg shadow-lg hover:shadow-2xl transition-shadow duration-300 overflow-hidden flex items-center cursor-pointer">
+    <!-- Contenedor del logotipo con margen izquierdo de 3 (12px) -->
+    <div class="ml-3 flex-shrink-0">
+      <img src="{{ url_for('archivo.documentos', filename=evento.ruta_logotipo) }}"
+           alt="LogoEdicion"
+           class="w-40 h-40 object-cover">
+    </div>
+    <div class="p-4">
+      <span class="font-bold text-lg text-gray-800">{{ evento.edicion }}°</span>
+      <p class="text-gray-600">{{ evento.nombre }}</p>
+    </div>
+  </div>
+{% endmacro %}

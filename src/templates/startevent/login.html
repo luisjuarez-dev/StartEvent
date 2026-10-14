@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% from "componentes/form_inputs.html" import input_correo, input_password %}
+{% from "componentes/botones.html" import boton %}
+{% block body %}
+  <div class="-z-10 absolute w-full h-full bg-fondo-startevent">
+    <div class="absolute w-full h-full [clip-path:polygon(0%_0%,100%_0%,0%_100%)] bg-fondo-primario"></div>
+    <div class="absolute w-full h-full [clip-path:polygon(100%_100%,0%_100%,100%_0%)] bg-fondo-secundario"></div>
+  </div>
+  <main class="h-screen flex">
+    <!-- MITAD IZQUIERDA: Contenido visual -->
+    <section class="w-1/2 flex flex-col text-negro p-4">
+      <!-- Título en la parte superior izquierda -->
+      <header class="flex justify-start">
+        <h1 class="text-white text-shadow-negro/60 text-shadow-sm italic">StartEvent</h1>
+      </header>
+      <div class="flex-1 flex flex-col items-center justify-center gap-2">
+        <img src="{{ url_for('static', filename='img/startevent/logo.png') }}"
+             alt="Logotipo de StartEvent"
+             class="w-2xl h-auto">
+        <h2>¡Bienvenido!</h2>
+        <p>Accede a tu cuenta para continuar</p>
+      </div>
+    </section>
+    <!-- MITAD DERECHA: Formulario -->
+    <section class="w-1/2 flex items-center justify-center p-4 text-negro">
+      <!--  CONTENEDOR CON FONDO GRIS CLARO Y OPACIDAD -->
+      <div class="flex flex-col justify-center items-center max-w-md gap-2 bg-black/20 backdrop-blur-sm rounded-2xl p-8 shadow-sm shadow-borde-gris">
+        <img src="{{ url_for('static', filename='img/startevent/ajoloteLogin.png') }}"
+             alt="Iniciar sesión"
+             class="w-xs h-auto">
+        <h2>Iniciar sesión</h2>
+        <form hx-post="{{ url_for('startevent.autenticacion.iniciar_sesion') }}"
+              hx-target="#div-notificacion"
+              class="w-full flex flex-col gap-2">
+          {{ input_correo(label="Correo", placeholder="correo@email.com", required=true, name="correo", importante=true) }}
+          {{ input_password(label="Contraseña", required=true, name="password", importante=true) }}
+          <br>
+          {{ boton(texto="Iniciar Sesión", tipo="submit", tam="lg") }}
+          <div class="text-center">
+            <a href="#" class="text-sm">¿Olvidaste tu contraseña?</a>
+          </div>
+        </form>
+      </div>
+      <!-- FIN DEL CONTENEDOR -->
+      <div id="div-notificacion"></div>
+    </section>
+  </main>
+{% endblock %}

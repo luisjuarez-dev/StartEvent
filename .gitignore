@@ -1,0 +1,17 @@
+Backups/
+Documentos/
+
+# Entornos
+.venv/
+.vscode/
+node_modules/
+.env
+
+# Python cache
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ruff_cache/
+
+# Tailwind Intelisense
+tailwind.config.js

@@ -1,0 +1,23 @@
+<div class="bg-primario px-6 py-4 flex justify-between items-center relative z-10">
+  {% if usuario %}
+    <span class="text-black text-[28px] font-light">{{ usuario.nombre_completo }}</span>
+  {% else %}
+    <span class="text-black text-[28px] font-semibold">Invitado</span>
+  {% endif %}
+  <!-- Checkbox oculto para controlar el menú -->
+  <input type="checkbox" id="menu-toggle" class="hidden peer">
+  <!-- Label que actúa como botón (foto de perfil) -->
+  <label for="menu-toggle" class="cursor-pointer">
+    <img src="https://i.pravatar.cc/40"
+         alt="Foto de perfil"
+         class="w-10 h-10 rounded-full border-2 border-white hover:opacity-80 transition">
+  </label>
+  <!-- Menú desplegable (visible solo cuando el checkbox está marcado) -->
+  <div class="absolute right-0 top-full mt-2 w-48 bg-white rounded-lg shadow-lg py-2 z-50 hidden peer-checked:block">
+    <a href="#"
+       class="block px-4 py-2 text-gray-700 hover:bg-gray-100 transition">🚪 Cerrar sesión</a>
+  </div>
+  <!-- Overlay que cierra el menú al hacer clic fuera -->
+  <label for="menu-toggle"
+         class="fixed inset-0 z-40 hidden peer-checked:block cursor-default"></label>
+</div>

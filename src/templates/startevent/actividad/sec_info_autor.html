@@ -1,0 +1,149 @@
+<div>
+  <div class="flex items-center border-b border-white/30 pb-2 mb-4">
+    <h3 class="text-xl font-semibold text-white">Información de <span class="italic">Autor</span></h3>
+    <span class="help-wrapper">
+      <span class="help-icon">?</span>
+      <span id="help-autor" class="tooltip-box">
+        Si hay más de un autor, se debe indicar quién será el autor de contacto principal para recibir información.
+      </span>
+    </span>
+  </div>
+  <div id="autoresContainer">
+    <!-- Autor 1 (modelo) -->
+    <div class="autor-seccion border border-white/20 rounded-lg p-4 mb-6 bg-white/5">
+      <h4 class="text-lg font-semibold text-white mb-3">Autor <span class="autor-numero">1</span>:</h4>
+      <!-- Fila 1: Nombre, Apellido Paterno, Apellido Materno -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
+        <div>
+          <label class="block text-white font-medium mb-1">Nombre *</label>
+          <input type="text"
+                 name="autor_nombre[]"
+                 required
+                 class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-[#66A5AD] bg-white">
+        </div>
+        <div>
+          <label class="block text-white font-medium mb-1">Apellido Paterno *</label>
+          <input type="text"
+                 name="autor_apellido_paterno[]"
+                 required
+                 class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-[#66A5AD] bg-white">
+        </div>
+        <div>
+          <label class="block text-white font-medium mb-1">Apellido Materno *</label>
+          <input type="text"
+                 name="autor_apellido_materno[]"
+                 required
+                 class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-[#66A5AD] bg-white">
+        </div>
+      </div>
+      <!-- Fila 2: Correo y Teléfono -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+        <div>
+          <label class="block text-white font-medium mb-1">Correo electrónico *</label>
+          <input type="email"
+                 name="autor_correo[]"
+                 required
+                 class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-[#66A5AD] bg-white">
+        </div>
+        <div>
+          <label class="block text-white font-medium mb-1">Teléfono celular *</label>
+          <input type="text"
+                 name="autor_telefono[]"
+                 required
+                 maxlength="25"
+                 class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-[#66A5AD] bg-white"
+                 oninput="this.value = this.value.replace(/[^0-9]/g, '')">
+        </div>
+      </div>
+      <!-- Fila 3: Nivel de estudios y Tipo institución -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+        <div>
+          <label class="block text-white font-medium mb-1">Nivel de estudios (opcional)</label>
+          <select name="autor_nivel_estudios[]"
+                  class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-[#66A5AD] bg-white">
+            <option value="">-- Selecciona --</option>
+            <option value="licenciatura">Licenciatura</option>
+            <option value="maestria">Maestría</option>
+            <option value="doctorado">Doctorado</option>
+            <option value="postdoctorado">Postdoctorado</option>
+            <option value="otro">Otro</option>
+          </select>
+        </div>
+        <div>
+          <label class="block text-white font-medium mb-1">Tipo institución (opcional)</label>
+          <select name="autor_tipo_institucion[]"
+                  class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-[#66A5AD] bg-white">
+            <option value="">-- Selecciona --</option>
+            <option value="publica">Pública</option>
+            <option value="privada">Privada</option>
+            <option value="mixta">Mixta</option>
+            <option value="ong">ONG</option>
+            <option value="otra">Otra</option>
+          </select>
+        </div>
+      </div>
+      <!-- Institución de procedencia -->
+      <div class="mb-4">
+        <label class="block text-white font-medium mb-1">Institución de procedencia *</label>
+        <input type="text"
+               name="autor_institucion[]"
+               required
+               class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-[#66A5AD] bg-white">
+      </div>
+      <!-- Semblanza con ayuda -->
+      <div class="mb-4">
+        <div class="flex items-center">
+          <label class="block text-white font-medium mb-1">Semblanza *</label>
+          <span class="help-wrapper">
+            <span class="help-icon">?</span>
+            <span id="help-semblanza" class="tooltip-box">
+              La semblanza debe ser redactada en tercera persona, será la presentación a la ponencia; debe comenzar con el nombre completo del ponente, seguido de su formación académica, afiliación institucional, o el departamento en el que se desempeña. Posteriormente un resumen de su trayectoria profesional y académica, destacando los cargos o proyectos más importantes. Es relevante incluir publicaciones principales o investigaciones significativas y señalar los reconocimientos o premios recibidos.
+            </span>
+          </span>
+        </div>
+        <textarea name="autor_semblanza[]"
+                  rows="4"
+                  required
+                  maxlength="1500"
+                  class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-[#66A5AD] bg-white"></textarea>
+        <p class="text-xs text-white/70 mt-1">Máximo 1500 caracteres.</p>
+      </div>
+      <!-- Intereses académicos -->
+      <div class="mb-4">
+        <label class="block text-white font-medium mb-1">Intereses académicos</label>
+        <input type="text"
+               name="autor_intereses[]"
+               maxlength="250"
+               class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-[#66A5AD] bg-white">
+        <p class="text-xs text-white/70 mt-1">Máximo 250 caracteres.</p>
+      </div>
+      <!-- Fotografía (centrada) -->
+      <div class="foto-wrapper">
+        <div class="photo-preview" id="preview-container-1">
+          <span>Sin imagen</span>
+        </div>
+        <div>
+          <label class="custom-file-button">
+            Subir foto
+            <input type="file"
+                   name="autor_foto[]"
+                   accept="image/*"
+                   class="file-input-hidden"
+                   onchange="previewImage(this, 'preview-container-1')">
+          </label>
+          <p class="text-xs text-white/70 mt-1">Formatos: JPG, PNG, GIF</p>
+        </div>
+      </div>
+      <!-- Botón eliminar (oculto por defecto) -->
+      <button type="button"
+              class="eliminar-autor text-red-300 hover:text-red-500 text-sm font-medium hidden mt-3">Eliminar autor</button>
+    </div>
+  </div>
+  <!-- Botón agregar otro autor (con hover azul y límite de 5) -->
+  <button type="button"
+          id="agregarAutorBtn"
+          class="bg-[#66A5AD] text-white font-medium py-2 px-4 rounded-lg hover:bg-blue-600 transition-colors">
+    + Agregar otro autor
+  </button>
+  <p id="autorLimitMsg" class="text-xs text-yellow-200 mt-1 hidden">Límite máximo de 5 autores alcanzado.</p>
+</div>

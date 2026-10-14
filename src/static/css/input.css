@@ -1,0 +1,212 @@
+@import "tailwindcss";
+@import "tailwind-animations";
+
+@font-face {
+  font-family: "Roboto";
+  src: url("../fonts/RobotoVariable.woff2") format("woff2");
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Roboto-Serif";
+  src: url("../fonts/RobotoSerifVariable.woff2") format("woff2");
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+}
+
+@theme {
+  --color-primario: #52969E;
+  --color-secundario: #9cbbc6;
+  --color-primario-enfoque: #458188;
+  --color-secundario-enfoque: #a5bec6;
+  --color-negro: #141618;
+  --color-placeholder: #b3b3b3;
+  --color-sombra: #57a0a9;
+  --color-sombra-secundario: #618999;
+  
+  --color-fondo:#EFEFFF;
+  --color-fondo-primario: #66A5AD;
+  --color-fondo-secundario: #C4DFE6;
+  --color-borde-gris: #828282;
+  --color-link: #3D7A82;
+  --color-peligro: #fa4949;
+  --color-sombra-peligro: #d84a4a;
+
+  --font-roboto: "Roboto";
+  --font-roboto-serif: "Roboto-Serif";
+}
+
+@layer base {
+  body {
+    @apply h-screen w-full flex flex-col font-roboto bg-fondo;
+  }
+  h1 {
+    @apply font-roboto-serif text-5xl font-bold font-stretch-condensed text-center my-5;
+  }
+  h2 {
+    @apply font-roboto-serif text-3xl font-semibold font-stretch-semi-condensed my-2;
+  }
+  h3 {
+    @apply font-roboto-serif text-xl font-semibold font-stretch-semi-condensed my-2;
+  }
+  p, span, label {
+    @apply text-base font-stretch-semi-expanded;
+  }
+  /*
+  button {
+    @apply transition duration-300 active:scale-95;
+  }*/
+  /*Este es un ejemplo*/
+  /*section {
+    @apply m-2 p-2;
+  }*/
+  hr {
+    @apply w-11/12 mx-auto my-5 border-borde-gris/80;
+  }
+  a {
+    @apply text-primario hover:text-link hover:underline;
+  }
+}
+
+@utility txt {
+  @apply font-roboto text-negro font-stretch-semi-expanded;
+}
+
+@utility txt-destacado {
+  @apply txt font-medium;
+}
+
+@utility titulo {
+  @apply font-roboto-serif text-5xl font-bold font-stretch-condensed;
+}
+
+@utility subtitulo {
+  @apply font-roboto-serif text-2xl font-semibold font-stretch-semi-condensed;
+}
+
+
+@layer components {
+
+  /* ============================
+     TRANSICIONES BASE
+     ============================ */
+  .transicion-escala {
+    @apply transition-transform duration-200 hover:scale-105;
+  }
+
+  .transicion-escala-lenta {
+    @apply transition-transform duration-300 ease-in-out hover:scale-105;
+  }
+
+  .transicion-elevar {
+    @apply transition-transform duration-200 hover:scale-105 hover:-translate-y-0.5;
+  }
+
+  .transicion-sombra {
+    @apply transition-all duration-200 hover:scale-105 hover:shadow-lg;
+  }
+
+  .transicion-centro {
+    @apply transition-transform duration-200 origin-center hover:scale-105;
+  }
+
+  /* ============================
+     NUEVAS TRANSICIONES
+     ============================ */
+
+  /* Resplandor: crece + sombra de color */
+  .transicion-resplandor {
+    @apply transition-all duration-300 hover:shadow-lg hover:shadow-sombra/50;
+  }
+
+  .transicion-resplandor-secundario {
+    @apply transition-all duration-300 hover:shadow-lg hover:shadow-sombra-secundario/50;
+  }
+
+  /* Presión: crece al pasar, se achica al click */
+  .transicion-presion {
+    @apply transition-transform duration-300 
+           active:scale-95;
+  }
+
+  /* Deslizar derecha: se mueve un poco a la derecha */
+  .transicion-deslizar {
+    @apply transition-transform duration-200 
+           hover:scale-105 
+           hover:translate-x-1;
+  }
+
+  /* Flotar: sube más notorio (más dramático que elevar) */
+  .transicion-flotar {
+    @apply hover:animate-sway hover:-translate-y-0.5 transition duration-300 ease-in-out;
+  }
+}
+
+@utility btn {
+  @apply flex items-center justify-center rounded-xl 
+}
+
+
+@utility btn-primario {
+  @apply btn font-roboto  bg-primario hover:bg-primario-enfoque h-10 w-60 truncate px-3 text-base font-semibold text-nowrap text-white;
+}
+
+@utility btn-secundario {
+  @apply btn font-roboto bg-secundario hover:bg-secundario-enfoque h-10 w-60 truncate px-3 text-base font-semibold text-nowrap text-white;
+}
+
+@utility btn-icono {
+  @apply btn h-10 w-10 active:scale-90;
+}
+
+@utility icono {
+  @apply fill-negro h-7 w-7;
+}
+
+@utility cabecera-tabla {
+    @apply txt-destacado bg-[#66A5AD]
+}
+
+@utility celda {
+  @apply h-10 border border-[#828282] px-3;
+}
+
+@utility fila-tabla {
+  @apply transition duration-200 even:bg-[#d9eff1] hover:bg-[#e3e3f1] even:hover:bg-[#d0e7e9];
+}
+
+@utility div-centrado {
+  @apply flex h-full w-full items-center justify-center;
+}
+
+@utility btn-primario-celda {
+  @apply btn-primario h-7.5;
+}
+
+@utility in {
+  @apply h-10 w-60 px-4 bg-white border border-borde-gris rounded-xl placeholder:text-placeholder group-hover:border-primario group-hover:border-2 transition duration-200 focus:outline-0 active:scale-95 ;
+}
+
+@utility in-color {
+  @apply -ml-11 h-9 w-9 z-10 group-active:scale-95;
+}
+
+@utility label-checkbox {
+  @apply txt-destacado flex items-center gap-2 cursor-pointer;
+}
+
+@utility checkbox {
+  @apply w-5 h-5 accent-blue-600;
+}
+
+@layer components {
+  .progress {
+    @apply w-full bg-gray-200 rounded-full h-2.5 overflow-hidden;
+  }
+  .progress-bar {
+    @apply bg-blue-600 h-full rounded-full transition-all duration-300;
+  }
+}

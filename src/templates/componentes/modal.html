@@ -1,0 +1,24 @@
+<div class="min-h-screen min-w-screen flex items-center justify-center bg-black/30 p-4">
+  <div class="relative bg-white rounded-2xl max-w-2xl w-full p-8 shadow-2xl">
+    <p hx-get="{{ url_for('startevent.eventos.esconder_modal_evento') }}"
+       hx-swap="outerHTML"
+       hx-target="#div-modal"
+       class="absolute top-2 right-2 font-bold text-black text-3xl z-10">X</p>
+    <h2 class="text-3xl font-bold text-gray-800 mb-4">12 edicion Simposio de ingenieria</h2>
+    <div class="flex items-center space-x-4 mb-6">
+      <img src="#" alt="Logo" class="w-32 h-32 object-cover rounded-lg">
+      <div>
+        <p class="text-gray-600">descripcion del evento</p>
+      </div>
+    </div>
+    <div class="flex justify-end">
+      <a hx-get="{{ url_for('startevent.eventos.esconder_modal_evento') }}"
+         hx-swap="outerHTML"
+         hx-target="#div-modal"
+         href="#"
+         class="bg-gray-200 hover:bg-gray-300 text-gray-700 px-4 py-2 rounded-lg transition mr-2">Cerrar</a>
+      <button type="button"
+              class="bg-primario hover:bg-[#3D7A82] text-white px-6 py-2 rounded-lg transition">Ver más detalles</button>
+    </div>
+  </div>
+</div>

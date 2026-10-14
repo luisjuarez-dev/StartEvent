@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block body %}
+  <!-- Contenedor principal: ocupa el espacio restante entre navbar y footer -->
+  <!-- Columna izquierda -->
+  <div class="w-1/2 bg-[#C4DFE6] flex flex-col text-white p-4 relative border-r-2 border-black overflow-y-auto h-full">
+    {% block columna_izquierda %}
+      <!-- Contenido de la columna izquierda -->
+    {% endblock %}
+  </div>
+  <!-- Columna derecha -->
+  <div class="w-1/2 bg-[#C4DFE6] flex flex-col text-white p-4 relative overflow-y-auto h-full">
+    {% block columna_derecha %}
+      <!-- Contenido de la columna derecha -->
+    {% endblock %}
+  </div>
+{% endblock %}

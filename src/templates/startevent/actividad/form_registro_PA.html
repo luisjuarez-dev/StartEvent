@@ -1,0 +1,160 @@
+{% extends "base.html" %}
+{% block body %}
+  <!-- CONTENEDOR DEL FORMULARIO (con scroll) -->
+  <div class="absolute left-1/2 -translate-x-1/2 top-[100px] w-[1140px] max-h-[790px] bg-black/20 backdrop-blur-xs rounded-2xl shadow-4xl overflow-y-auto p-6 z-20"
+       id="formContainer">
+    <h2 class="text-2xl font-bold text-white text-center mb-6">Registro para investigadores</h2>
+    <form id="mainForm" class="space-y-6">
+      <!-- ===== SECCIÓN 1: Disponibilidad ===== -->
+      {% include "sec_disponibilidad.html" %}
+      <!-- ===== SECCIÓN 2: Información de la actividad ===== -->
+      {% include "sec_info_actividad.html" %}
+      <!-- ===== SECCIÓN 3: Información de Autor ===== -->
+      {% include "sec_info_autor.html" %}
+      <!-- Botón de enviar (hover verde) -->
+      <button type="submit"
+              class="w-full bg-[#66A5AD] text-white font-bold py-3 rounded-lg hover:bg-green-600 transition-colors">
+        Enviar registro
+      </button>
+    </form>
+    <!-- ===== JAVASCRIPT ===== -->
+    <script>
+        // ----- 1. TOGGLES PARA LOS HELP (tooltips flotantes) -----
+        document.querySelectorAll('.help-icon').forEach(icon => {
+            icon.addEventListener('click', function(e) {
+                e.stopPropagation();
+                const wrapper = this.closest('.help-wrapper');
+                const tooltip = wrapper.querySelector('.tooltip-box');
+                if (tooltip) {
+                    // Cerrar otros tooltips abiertos
+                    document.querySelectorAll('.tooltip-box.show').forEach(t => {
+                        if (t !== tooltip) t.classList.remove('show');
+                    });
+                    tooltip.classList.toggle('show');
+                }
+            });
+        });
+        // Cerrar tooltips al hacer clic fuera
+        document.addEventListener('click', function(e) {
+            if (!e.target.closest('.help-wrapper')) {
+                document.querySelectorAll('.tooltip-box.show').forEach(t => t.classList.remove('show'));
+            }
+        });
+
+        // ----- 2. PREVISUALIZACIÓN DE IMAGEN -----
+        function previewImage(input, containerId) {
+            const container = document.getElementById(containerId);
+            if (input.files && input.files[0]) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    container.innerHTML = `<img src="${e.target.result}" alt="Foto de autor">`;
+                };
+                reader.readAsDataURL(input.files[0]);
+            } else {
+                container.innerHTML = '<span>Sin imagen</span>';
+            }
+        }
+
+        // ----- 3. AGREGAR / ELIMINAR AUTORES (con límite de 5) -----
+        const autoresContainer = document.getElementById('autoresContainer');
+        const agregarBtn = document.getElementById('agregarAutorBtn');
+        const limitMsg = document.getElementById('autorLimitMsg');
+        const MAX_AUTORES = 5;
+        let autorCount = 1;
+
+        function actualizarAutores() {
+            const secciones = autoresContainer.querySelectorAll('.autor-seccion');
+            secciones.forEach((sec, index) => {
+                const numero = index + 1;
+                sec.querySelector('.autor-numero').textContent = numero;
+                const preview = sec.querySelector('.photo-preview');
+                if (preview) {
+                    preview.id = `preview-container-${numero}`;
+                }
+                const fileInput = sec.querySelector('input[type="file"]');
+                if (fileInput) {
+                    fileInput.setAttribute('onchange', `previewImage(this, 'preview-container-${numero}')`);
+                }
+                const eliminarBtn = sec.querySelector('.eliminar-autor');
+                if (secciones.length > 1) {
+                    eliminarBtn.classList.remove('hidden');
+                } else {
+                    eliminarBtn.classList.add('hidden');
+                }
+            });
+            autorCount = secciones.length;
+            // Mostrar/ocultar mensaje de límite
+            if (autorCount >= MAX_AUTORES) {
+                agregarBtn.disabled = true;
+                agregarBtn.classList.add('opacity-50', 'cursor-not-allowed');
+                limitMsg.classList.remove('hidden');
+            } else {
+                agregarBtn.disabled = false;
+                agregarBtn.classList.remove('opacity-50', 'cursor-not-allowed');
+                limitMsg.classList.add('hidden');
+            }
+        }
+
+        function clonarSeccion() {
+            if (autorCount >= MAX_AUTORES) {
+                return;
+            }
+            const primeraSeccion = autoresContainer.querySelector('.autor-seccion');
+            const clon = primeraSeccion.cloneNode(true);
+            
+            // Resetear valores
+            clon.querySelectorAll('input, textarea, select').forEach(input => {
+                if (input.type !== 'file') {
+                    input.value = '';
+                } else {
+                    const previewId = clon.querySelector('.photo-preview').id;
+                    const preview = document.getElementById(previewId);
+                    if (preview) preview.innerHTML = '<span>Sin imagen</span>';
+                    input.value = '';
+                }
+            });
+            
+            // Resetear previsualización
+            const preview = clon.querySelector('.photo-preview');
+            if (preview) {
+                const newId = `preview-container-${autorCount + 1}`;
+                preview.id = newId;
+                preview.innerHTML = '<span>Sin imagen</span>';
+                const fileInput = clon.querySelector('input[type="file"]');
+                if (fileInput) {
+                    fileInput.setAttribute('onchange', `previewImage(this, '${newId}')`);
+                }
+            }
+
+            // Botón eliminar
+            const eliminarBtn = clon.querySelector('.eliminar-autor');
+            eliminarBtn.classList.remove('hidden');
+            eliminarBtn.addEventListener('click', function() {
+                if (confirm('¿Eliminar este autor?')) {
+                    this.closest('.autor-seccion').remove();
+                    actualizarAutores();
+                }
+            });
+
+            autoresContainer.appendChild(clon);
+            autorCount++;
+            actualizarAutores();
+        }
+
+        agregarBtn.addEventListener('click', clonarSeccion);
+
+        // Eventos para botones eliminar iniciales
+        document.querySelectorAll('.eliminar-autor').forEach(btn => {
+            btn.addEventListener('click', function() {
+                if (confirm('¿Eliminar este autor?')) {
+                    this.closest('.autor-seccion').remove();
+                    actualizarAutores();
+                }
+            });
+        });
+
+        // Inicializar
+        actualizarAutores();
+    </script>
+  </div>
+{% endblock %}

@@ -1,0 +1,50 @@
+<div>
+  <h3 class="text-xl font-semibold text-white border-b border-white/30 pb-2 mb-4">Disponibilidad</h3>
+  <div class="mb-4">
+    <label for="plantel"
+           class="block text-white font-medium mb-1">Elige el plantel en el que presentarás tu ponencia.</label>
+    <select id="plantel"
+            name="plantel"
+            class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-[#66A5AD] bg-white">
+      <option value="">-- Selecciona un plantel --</option>
+      <option value="plantel1">Plantel 1</option>
+      <option value="plantel2">Plantel 2</option>
+      <option value="plantel3">Plantel 3</option>
+      <option value="plantel4">Plantel 4</option>
+    </select>
+  </div>
+  <div>
+    <label class="block text-white font-medium mb-1">Selecciona los días que tienes disponible para poder presentar tu ponencia del 14 al 17 de Septiembre (Recomendamos elegir al menos 2):</label>
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-3 mt-2">
+      <label class="flex items-center space-x-2 bg-white/60 p-2 rounded-lg cursor-pointer hover:bg-white/80 transition">
+        <input type="checkbox"
+               name="dia"
+               value="14"
+               class="w-4 h-4 text-[#66A5AD] focus:ring-[#66A5AD]">
+        <span class="text-gray-800">14 de Sept</span>
+      </label>
+      <label class="flex items-center space-x-2 bg-white/60 p-2 rounded-lg cursor-pointer hover:bg-white/80 transition">
+        <input type="checkbox"
+               name="dia"
+               value="15"
+               class="w-4 h-4 text-[#66A5AD] focus:ring-[#66A5AD]">
+        <span class="text-gray-800">15 de Sept</span>
+      </label>
+      <label class="flex items-center space-x-2 bg-white/60 p-2 rounded-lg cursor-pointer hover:bg-white/80 transition">
+        <input type="checkbox"
+               name="dia"
+               value="16"
+               class="w-4 h-4 text-[#66A5AD] focus:ring-[#66A5AD]">
+        <span class="text-gray-800">16 de Sept</span>
+      </label>
+      <label class="flex items-center space-x-2 bg-white/60 p-2 rounded-lg cursor-pointer hover:bg-white/80 transition">
+        <input type="checkbox"
+               name="dia"
+               value="17"
+               class="w-4 h-4 text-[#66A5AD] focus:ring-[#66A5AD]">
+        <span class="text-gray-800">17 de Sept</span>
+      </label>
+    </div>
+    <p class="text-xs text-white/70 mt-1">Selecciona al menos 2 días.</p>
+  </div>
+</div>

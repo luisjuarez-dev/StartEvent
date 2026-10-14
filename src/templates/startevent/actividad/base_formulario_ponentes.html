@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Triángulo Tailwind</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Estilos para el icono de ayuda y tooltips flotantes */
+        .help-wrapper {
+            position: relative;
+            display: inline-block;
+            margin-left: 6px;
+        }
+        .help-icon {
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 22px;
+            height: 22px;
+            background: #4f8a92;
+            color: white;
+            border-radius: 50%;
+            font-size: 14px;
+            font-weight: bold;
+            transition: background 0.2s;
+        }
+        .help-icon:hover {
+            background: #2d5f66;
+        }
+        .tooltip-box {
+            display: none;
+            position: absolute;
+            left: calc(100% + 10px);
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(0,0,0,0.9);
+            color: white;
+            padding: 10px 14px;
+            border-radius: 8px;
+            font-size: 13px;
+            width: 300px;
+            max-width: 300px;
+            z-index: 50;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+            text-align: left;
+            pointer-events: none;
+        }
+        /* Flecha del tooltip */
+        .tooltip-box::before {
+            content: '';
+            position: absolute;
+            right: 100%;
+            top: 50%;
+            transform: translateY(-50%);
+            border: 8px solid transparent;
+            border-right-color: rgba(0,0,0,0.9);
+        }
+        .tooltip-box.show {
+            display: block;
+        }
+
+        /* Previsualización de la imagen centrada */
+        .photo-preview {
+            width: 210px;
+            height: 260px;
+            border: 2px dashed #ccc;
+            border-radius: 8px;
+            background: #f0f0f0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #999;
+            font-size: 14px;
+            overflow: hidden;
+        }
+        .photo-preview img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .file-input-hidden {
+            display: none;
+        }
+        .custom-file-button {
+            background: #66A5AD;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            display: inline-block;
+            transition: background 0.2s;
+        }
+        .custom-file-button:hover {
+            background: #4f8a92;
+        }
+
+        /* Contenedor de foto: centrar todo */
+        .foto-wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+        }
+        .foto-wrapper .photo-preview {
+            margin: 0 auto;
+        }
+
+        /* Ajustes para móviles del tooltip */
+        @media (max-width: 640px) {
+            .tooltip-box {
+                left: auto;
+                right: 0;
+                top: calc(100% + 10px);
+                transform: none;
+                width: 200px;
+            }
+            .tooltip-box::before {
+                display: none;
+            }
+        }
+    </style>
+  </head>
+  <body class="bg-[#66A5AD] min-h-screen m-0">
+    <!-- Contenedor que ocupa toda la base -->
+    <div class="relative w-full h-screen">
+      <!-- TÍTULO SUPERIOR CENTRADO (corregido) -->
+      <div class="absolute top-0 left-0 w-full text-center pt-8 z-10">
+        <h1 class="text-4xl font-bold text-white drop-shadow-lg">
+          ¡Bienvenido al registro de convocatorias al 11° Simposio de Ingeniería de la UACM!
+        </h1>
+      </div>
+      <!-- Triángulo e imágenes inferiores (sin cambios) -->
+      <div class="relative w-full h-[50vh] [filter:drop-shadow(0_10px_15px_rgba(0,0,0,0.3))]">
+        <div class="w-full h-full [clip-path:polygon(0%_0%,100%_0%,50%_90%)] bg-[#C4DFE6]"></div>
+        <img src="{{ url_for('static', filename='img/LogoUACM_SF.png') }}"
+             alt="LogoUACM"
+             class="absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-1/4 transform w-[200px] h-[200px] object-contain">
+      </div>
+      <!-- Imagen inferior izquierda -->
+      <img src="{{ url_for('static', filename='img/logo_CCYT1_negro.png') }}"
+           alt="Logo CCYT"
+           class="absolute bottom-0 left-0 m-[20px] w-[329px] h-[170px] object-contain select-none"
+           draggable="false">
+      <!-- Imagen inferior derecha -->
+      <img src="{{ url_for('static', filename='img/UACM.png') }}"
+           alt="Logo W CGA"
+           class="absolute bottom-0 right-0 m-[20px] w-[220px] h-[170px] object-contain select-none"
+           draggable="false">
+      <div>
+        {% block contenido %}{% endblock %}
+      </div>
+    </div>
+  </body>
+</html>

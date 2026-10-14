@@ -1,0 +1,30 @@
+{% macro boton(texto, tipo="primario", tam="md") %}
+  <button class="flex items-center justify-center rounded-xl truncate px-3 font-semibold text-nowrap transition duration-300 hover:shadow-lg active:scale-95 
+  {%- if tam == "sm" %} h-10 w-30
+  {%- elif tam == "md" %} h-10 w-60
+  {%- elif tam == "lg" %} h-12 w-full
+  {%- endif %}
+  {%- if tipo == "primario" or tipo == "submit" %} bg-primario text-white hover:bg-primario-enfoque hover:shadow-sombra/50
+  {%- elif tipo == "secundario" %} border-2 border-primario text-primario hover:text-white transition hover:bg-primario hover:shadow-sombra-secundario/50
+  {%- elif tipo == "peligro" %} border-2 border-peligro text-peligro hover:text-white transition hover:bg-peligro hover:shadow-sombra-peligro
+  {%- endif %}"
+  type="{{ 'submit' if tipo == 'submit' else 'button' }}">{{ texto }}</button>
+{% endmacro %}
+<!--
+<button class="btn-icono transicion-flotar w-24 h-24" type="button">
+  <svg class="icono fill-amber-600 w-full h-full">
+    <use width="96px" height="96px" xlink:href="{{ url_for('static', filename='iconos.svg') }}#{{ tipo }}"></use>
+  </svg>
+</button>
+-->
+{% macro boton_icono(id) %}
+  <button class="group relative hover:animate-sway hover:-translate-y-0.5 transition duration-300 ease-in-out active:scale-90"
+          type="button">
+    <svg class="fill-negro w-7 h-7">
+      <use xlink:href="{{ url_for('static', filename='iconos.svg') }}#{{ id }}"></use>
+    </svg>
+    <label class="pointer-events-none absolute -top-8 inset-x-0 w-fit h-fit rounded bg-black/80 px-2 py-1 text-xs text-white opacity-0 transition duration-200 delay-1000 group-hover:opacity-100 group-focus-within:opacity-100 whitespace-nowrap z-10"
+           role="tooltip"
+           id="info-{{ id }}">{{ id }}</label>
+  </button>
+{% endmacro %}
