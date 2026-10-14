@@ -4,7 +4,7 @@ from sqlalchemy import select
 
 from src.inicializacion.extenciones import db
 from src.interfaces.repositorio import ComiteEventoRepositorioI
-from src.modelo.comite_evento import ComiteEvento
+from src.schemas.comite_evento import ComiteEvento
 
 
 class ComiteEventoRepositorio(ComiteEventoRepositorioI):

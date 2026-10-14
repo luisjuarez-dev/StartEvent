@@ -11,9 +11,9 @@ from sqlalchemy import select
 
 from src.enums import SubtipoDocumento, TipoDocumento
 from src.inicializacion.extenciones import db
-from src.modelo.comite_evento import ComiteEvento
-from src.modelo.documento_evento import DocumentoEvento
-from src.modelo.persona_academica import PersonaAcademica
+from src.schemas.comite_evento import ComiteEvento
+from src.schemas.documento_evento import DocumentoEvento
+from src.schemas.persona_academica import PersonaAcademica
 
 ModeloT = TypeVar("ModeloT")
 IdT = TypeVar("IdT")

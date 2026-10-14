@@ -5,7 +5,7 @@ from sqlalchemy import select
 from src.enums import SubtipoDocumento, TipoDocumento
 from src.inicializacion.extenciones import db
 from src.interfaces.repositorio import DocumentoEventoRepositorioI
-from src.modelo.documento_evento import DocumentoEvento
+from src.schemas.documento_evento import DocumentoEvento
 
 
 class DocumentoEventoRepositorio(DocumentoEventoRepositorioI):
