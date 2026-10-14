@@ -9,7 +9,11 @@ from flask import Flask
 
 from src.inicializacion.base_datos import crear_base
 from src.inicializacion.comandos import registrar_comandos
-from src.inicializacion.config import DevelopmentConfig
+from src.inicializacion.config import (
+    Config,
+    DevelopmentConfig,
+    ProductionConfig,
+)
 from src.inicializacion.dependencias import componer_de_raiz
 from src.inicializacion.extenciones import db, jwt
 
@@ -27,9 +31,10 @@ def crear_app() -> Flask:
 
     """
     app = Flask(__name__)
-
-    app.config.from_object(DevelopmentConfig)
-
+    if Config.DIRECTORIO_STARTEVENT == "/home/superadmin/StartEvent":
+        app.config.from_object(ProductionConfig)
+    else:
+        app.config.from_object(DevelopmentConfig)
     db.init_app(app)
     jwt.init_app(app)
 

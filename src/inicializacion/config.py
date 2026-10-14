@@ -10,9 +10,6 @@ from pathlib import Path
 from dotenv import load_dotenv
 
 ARCHIVO_EJECUTANDODSE = Path(__file__).resolve()  # config.py
-DIRECTORIO_STARTEVENT = ARCHIVO_EJECUTANDODSE.parents[
-    2
-]  # 2 padres arriba de wsgi.py. "/StartEvent"
 
 load_dotenv()
 
@@ -42,9 +39,13 @@ class Config:
     JWT_ACCESS_TOKEN_EXPIRES = timedelta(hours=2)
     JWT_REFRESH_TOKEN_EXPIRES = timedelta(days=30)
     JWT_POR_EXPIRAR = timedelta(minutes=30)
+    DIRECTORIO_STARTEVENT = ARCHIVO_EJECUTANDODSE.parents[
+        2
+    ]  # 2 padres arriba de wsgi.py. "/StartEvent"
     DIRECTORIO_DOCUMENTOS = DIRECTORIO_STARTEVENT / "Documentos"
     DIRECTORIO_BACKUP = DIRECTORIO_STARTEVENT / "Backups"
     DIRECTORIO_TEMPLATES = DIRECTORIO_STARTEVENT / "src" / "templates"
+
 
 
 class DevelopmentConfig(Config):
@@ -74,4 +75,4 @@ class ProductionConfig(Config):
     DEBUG = False
     JWT_COOKIE_SECURE = True
     PIMIENTA=os.getenv("PIMIENTA_PRODUCCION")
-    SQLALCHEMY_DATABASE_URI = os.getenv("SQLALCHEMY_DATABASE_PRODUCCION")
+    SQLALCHEMY_DATABASE_URI = os.getenv("SQLALCHEMY_DATABASE_URI_PRODUCCION")
