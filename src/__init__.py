@@ -5,12 +5,13 @@ la aplicación Flask con todas las extensiones, base de datos, rutas y
 componentes necesarios.
 """
 
+import os
+
 from flask import Flask
 
 from src.inicializacion.base_datos import crear_base
 from src.inicializacion.comandos import registrar_comandos
 from src.inicializacion.config import (
-    Config,
     DevelopmentConfig,
     ProductionConfig,
 )
@@ -31,7 +32,7 @@ def crear_app() -> Flask:
 
     """
     app = Flask(__name__)
-    if Config.DIRECTORIO_STARTEVENT == "/home/superadmin/StartEvent":
+    if os.environ.get("FLASK_ENV") == "Production":
         app.config.from_object(ProductionConfig)
     else:
         app.config.from_object(DevelopmentConfig)
