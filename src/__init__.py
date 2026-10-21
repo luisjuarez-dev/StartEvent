@@ -14,6 +14,7 @@ from src.inicializacion.comandos import registrar_comandos
 from src.inicializacion.config import (
     DevelopmentConfig,
     ProductionConfig,
+    TestingConfig,
 )
 from src.inicializacion.dependencias import componer_de_raiz
 from src.inicializacion.extenciones import db, jwt
@@ -34,6 +35,8 @@ def crear_app() -> Flask:
     app = Flask(__name__)
     if os.environ.get("FLASK_ENV") == "Production":
         app.config.from_object(ProductionConfig)
+    if os.environ.get("FLASK_ENV") == "Testing":
+        app.config.from_object(TestingConfig)
     else:
         app.config.from_object(DevelopmentConfig)
     db.init_app(app)

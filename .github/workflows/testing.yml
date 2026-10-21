@@ -1,5 +1,7 @@
 name: Prueba Github Actions
 on: push
+env:
+  FLASK_ENV: Testing
 jobs:
   EjecutarTest:
     runs-on: ubuntu-latest
@@ -18,5 +20,18 @@ jobs:
 
       - name: Instalar dependencias
         run: pip install -r requirements.txt
+      
+      - name: Prueba ls 
+        run: ls
 
-      - run: pytest -v
+      - name: Crear archivo .env en directorio específico
+        run: |
+          mkdir -p StartEvent
+          cat <<EOF > StartEvent/.env
+          SQLALCHEMY_DATABASE_URI_PRUEBA=${{ secrets.SQLALCHEMY_DATABASE_URI_PRUEBA }}
+          JWT_SECRET_KEY=${{ secrets.JWT_SECRET_KEY }}
+          PIMIENTA_PRUEBA=${{ secrets.PIMIENTA_PRUEBA }}
+          EOF
+
+      - name: Prueba2 ls 
+        run: ls

@@ -59,7 +59,7 @@ class DevelopmentConfig(Config):
 
     DEBUG = True
     JWT_COOKIE_SECURE = False
-    PIMIENTA=os.getenv("PIMIENTA_PRUEBA")
+    PIMIENTA=os.getenv("PIMIENTA_DESARROLLO")
     SQLALCHEMY_DATABASE_URI = os.getenv("SQLALCHEMY_DATABASE_URI_DESARROLLO")
 
 
@@ -76,3 +76,18 @@ class ProductionConfig(Config):
     JWT_COOKIE_SECURE = True
     PIMIENTA=os.getenv("PIMIENTA_PRODUCCION")
     SQLALCHEMY_DATABASE_URI = os.getenv("SQLALCHEMY_DATABASE_URI_PRODUCCION")
+
+class TestingConfig(Config):
+    """Clase de configuración para el entorno de pruebas.
+
+    Attributes:
+        DEBUG (bool): desactiva el modo debug de Flask.
+        JWT_COOKIE_SECURE (bool): activa las cookies seguras por HTTP
+
+    """
+
+    DEBUG = False
+    JWT_COOKIE_SECURE = False
+    TESTING = True
+    PIMIENTA=os.getenv("PIMIENTA_PRUEBA")
+    SQLALCHEMY_DATABASE_URI = os.getenv("SQLALCHEMY_DATABASE_URI_PRUEBA")
