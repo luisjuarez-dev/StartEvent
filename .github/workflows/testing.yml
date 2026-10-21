@@ -25,7 +25,7 @@ jobs:
         run: ls
 
       - name: Crear archivo .env en directorio específico
-        run: 
+        run: |
           cat <<EOF > .env
           SQLALCHEMY_DATABASE_URI_PRUEBA=${{ secrets.SQLALCHEMY_DATABASE_URI_PRUEBA }}
           JWT_SECRET_KEY=${{ secrets.JWT_SECRET_KEY }}
