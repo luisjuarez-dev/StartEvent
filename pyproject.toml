@@ -66,3 +66,7 @@ ignore = [
     "H030",     #Debe haber una descripción meta
     "H017",     #Las etiquetas void no se deben cerrar
 ]
+
+[tool.pytest.ini_options]
+pythonpath = ["."]
+testpaths = ["test"]
