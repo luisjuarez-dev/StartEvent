@@ -1,7 +1,0 @@
-name: Prueba Github Actions
-on: pull_request
-jobs:
-  Saluda:
-    runs-on: ubuntu-latest
-    steps:
-      - run: echo "Hola nueva pull request"

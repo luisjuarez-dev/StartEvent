@@ -1,0 +1,22 @@
+name: Prueba Github Actions
+on: push
+jobs:
+  EjecutarTest:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.11", "3.12", "3.13", "3.14"]
+    steps:
+      - name: Descargar el código fuente
+        uses: actions/checkout@v6
+
+      - name: Establecer versión de python
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+          cache: 'pip' # Automatically caches your dependencies to speed up future runs
+
+      - name: Instalar dependencias
+        run: pip install -r requirements.txt
+
+      - run: pytest -v
