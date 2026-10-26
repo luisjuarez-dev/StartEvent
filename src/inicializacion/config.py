@@ -45,6 +45,7 @@ class Config:
     DIRECTORIO_DOCUMENTOS = DIRECTORIO_STARTEVENT / "Documentos"
     DIRECTORIO_BACKUP = DIRECTORIO_STARTEVENT / "Backups"
     DIRECTORIO_TEMPLATES = DIRECTORIO_STARTEVENT / "src" / "templates"
+    PIMIENTA=os.getenv("PIMIENTA")
 
 
 
@@ -59,7 +60,6 @@ class DevelopmentConfig(Config):
 
     DEBUG = True
     JWT_COOKIE_SECURE = False
-    PIMIENTA=os.getenv("PIMIENTA_DESARROLLO")
     SQLALCHEMY_DATABASE_URI = os.getenv("SQLALCHEMY_DATABASE_URI_DESARROLLO")
 
 
@@ -74,7 +74,6 @@ class ProductionConfig(Config):
 
     DEBUG = False
     JWT_COOKIE_SECURE = True
-    PIMIENTA=os.getenv("PIMIENTA_PRODUCCION")
     SQLALCHEMY_DATABASE_URI = os.getenv("SQLALCHEMY_DATABASE_URI_PRODUCCION")
 
 class TestingConfig(Config):
@@ -89,5 +88,4 @@ class TestingConfig(Config):
     DEBUG = False
     JWT_COOKIE_SECURE = False
     TESTING = True
-    PIMIENTA=os.getenv("PIMIENTA_PRUEBA")
     SQLALCHEMY_DATABASE_URI = os.getenv("SQLALCHEMY_DATABASE_URI_PRUEBA")

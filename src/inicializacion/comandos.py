@@ -130,7 +130,7 @@ def registrar_comandos(app: Flask) -> None:
         """Pobla la base de datos con los datos de prueba de un script."""
         crear_base(app, db)
         archivo = Path.open(
-            app.config["DIRECTORIO_BACKUP"] / "backup_prueba.sql"
+            app.config["DIRECTORIO_BACKUP"] / "backup_prueba.sql", 'r', encoding='utf-8'
         )
         sql = archivo.read()
         db.session.execute(text(sql))
