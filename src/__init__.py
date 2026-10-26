@@ -35,7 +35,7 @@ def crear_app() -> Flask:
     app = Flask(__name__)
     if os.environ.get("FLASK_ENV") == "Production":
         app.config.from_object(ProductionConfig)
-    if os.environ.get("FLASK_ENV") == "Testing":
+    elif os.environ.get("FLASK_ENV") == "Testing":
         app.config.from_object(TestingConfig)
     else:
         app.config.from_object(DevelopmentConfig)
