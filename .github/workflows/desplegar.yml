@@ -18,4 +18,5 @@ jobs:
             cd StartEvent
             git pull
             sudo systemctl restart startevent
+            echo "#####EMPEZANDO CON LOS LOG DEL SERVICIO####"
             sudo journalctl -u startevent.service -n 300 --no-pager
