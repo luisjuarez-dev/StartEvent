@@ -90,35 +90,26 @@ def registrar_comandos(app: Flask) -> None:
             Equivalente a ejecutar
             ruff format
             ruff check --fix
+            djlint . --reformat
+            djlint . --check
+
         Examples:
             flask startevent format
-            djlint . --reformat
-            djlint . --lint
 
         """
-        print(  # noqa: T201
-            "---------------------------------------------\n"
-            "\tFormateando archivos python...\n"
-            "---------------------------------------------\n"
-        )
+        print(f"{'-' * 45}\n\tFormateando archivos python...\n{'-' * 45}\n", flush=True)  # noqa: T201
         if corregir:
             subprocess.run(["ruff", "format"])
         else:
             subprocess.run(["ruff", "format", "--check"])
-        print(  # noqa: T201
-            "---------------------------------------------\n"
-            "\tAnalizando archivos python...\n"
-            "---------------------------------------------\n"
-        )
+
+        print(f"{'-' * 45}\n\tAnalizando archivos python...\n{'-' * 45}\n", flush=True)  # noqa: T201
         if corregir:
             subprocess.run(["ruff", "check", "--fix"])
         else:
             subprocess.run(["ruff", "check"])
-        print(  # noqa: T201
-            "---------------------------------------------\n"
-            "\tAnalizando archivos HTML...\n"
-            "---------------------------------------------\n"
-        )
+
+        print(f"{'-' * 45}\n\tAnalizando archivos HTML...\n{'-' * 45}\n", flush=True)  # noqa: T201
         if corregir:
             subprocess.run(["djlint", ".", "--reformat"])
         else:
@@ -136,3 +127,26 @@ def registrar_comandos(app: Flask) -> None:
         sql = archivo.read()
         db.session.execute(text(sql))
         db.session.commit()
+
+
+"""
+import subprocess
+
+resultado = subprocess.run(
+    ["ruff", "format"],
+    capture_output=True,
+    text=True,  # devuelve str en lugar de bytes
+    check=False,  # no lanza excepción si falla
+)
+
+# ruff format escribe casi todo por stderr
+if resultado.stdout:
+    print("── stdout ──")
+    print(resultado.stdout)
+
+if resultado.stderr:
+    print("── stderr ──")
+    print(resultado.stderr)
+
+print(f"Código de salida: {resultado.returncode}")
+"""
