@@ -17,7 +17,7 @@ jobs:
           cache: 'pip' # Pone las dependencias en caché para ejecuciones posteriores más rápidas
         
       - name: Instalar dependencias
-        run: pip install ruff djlint
+        run: pip install ruff djlint Flask
       
       - name: Revision completa
         run: | 
