@@ -1,4 +1,5 @@
 """Servicio para la gestión de eventos académicos."""
+
 from src.dto.evento import BuscarEventosUsuarioDto, MostrarEventoDto
 from src.enums import SubtipoDocumento, TipoDocumento
 from src.interfaces.repositorio import (

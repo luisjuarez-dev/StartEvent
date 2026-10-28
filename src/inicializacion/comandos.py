@@ -10,6 +10,7 @@ import subprocess
 from datetime import datetime
 from pathlib import Path
 
+import click
 from flask import Flask
 from sqlalchemy import text
 
@@ -77,7 +78,8 @@ def registrar_comandos(app: Flask) -> None:
         return None
 
     @app.cli.command("format")
-    def autoformatear() -> None:
+    @click.option("--corregir/--no-corregir", default=True)
+    def autoformatear(*, corregir: bool) -> None:
         """Formatea automáticamente el código de todo el proyecto.
 
         Utiliza las herramientas de Ruff y Djlint para indicar los errores
@@ -99,38 +101,37 @@ def registrar_comandos(app: Flask) -> None:
             "\tFormateando archivos python...\n"
             "---------------------------------------------\n"
         )
-        subprocess.run(["ruff", "format"])
+        if corregir:
+            subprocess.run(["ruff", "format"])
+        else:
+            subprocess.run(["ruff", "format", "--check"])
         print(  # noqa: T201
             "---------------------------------------------\n"
             "\tAnalizando archivos python...\n"
             "---------------------------------------------\n"
         )
-        subprocess.run(["ruff", "check", "--fix"])
-        print(  # noqa: T201
-            "---------------------------------------------\n"
-            "\tFormateando archivos HTML...\n"
-            "---------------------------------------------\n"
-        )
-        subprocess.run(["djlint", ".", "--reformat"])
+        if corregir:
+            subprocess.run(["ruff", "check", "--fix"])
+        else:
+            subprocess.run(["ruff", "check"])
         print(  # noqa: T201
             "---------------------------------------------\n"
             "\tAnalizando archivos HTML...\n"
             "---------------------------------------------\n"
         )
-        subprocess.run(["djlint", ".", "--lint"])
-        print(  # noqa: T201
-            "-------------------------------------\n"
-            "\tProyecto formateado.\n"
-            "-------------------------------------\n"
-            "Corregir todos los errores encontrados.\n"
-        )
+        if corregir:
+            subprocess.run(["djlint", ".", "--reformat"])
+        else:
+            subprocess.run(["djlint", ".", "--check"])
 
     @app.cli.command("crear_base_prueba")
     def crear_base_prueba() -> None:
         """Pobla la base de datos con los datos de prueba de un script."""
         crear_base(app, db)
         archivo = Path.open(
-            app.config["DIRECTORIO_BACKUP"] / "backup_prueba.sql", 'r', encoding='utf-8'
+            app.config["DIRECTORIO_BACKUP"] / "backup_prueba.sql",
+            "r",
+            encoding="utf-8",
         )
         sql = archivo.read()
         db.session.execute(text(sql))

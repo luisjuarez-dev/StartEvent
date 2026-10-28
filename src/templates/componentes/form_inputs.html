@@ -3,8 +3,7 @@
   <label class="block group h-fit {% if importante %}w-full{% else %}w-fit{% endif %}">
     <p {% if importante %}class="font-medium mb-2 text-lg"{% endif %}>{{ label }}</p>
     <input type="text"
-           class="bg-white border border-borde-gris rounded-xl placeholder:text-placeholder group-hover:border-primario group-hover:border-2 transition duration-200 focus:outline-0 active:scale-95
-           {% if importante %}h-12 w-full px-5{% else %}h-10 w-60 px-4{% endif %}"
+           class="bg-white border border-borde-gris rounded-xl placeholder:text-placeholder group-hover:border-primario group-hover:border-2 transition duration-200 focus:outline-0 active:scale-95 {% if importante %}h-12 w-full px-5{% else %}h-10 w-60 px-4{% endif %}"
            {% if placeholder %}placeholder="{{ placeholder }}"{% endif %}
            {% if value %}value="{{ value }}"{% endif %}
            {% if required %}required{% endif %}>
@@ -15,8 +14,7 @@
     <p {% if importante %}class="font-medium mb-2 text-lg"{% endif %}>{{ label }}</p>
     <input type="email"
            pattern="^[\w-_\.]+@[\w-_\.]+[\w-_]{2,4}$"
-           class="bg-white border border-borde-gris rounded-xl placeholder:text-placeholder group-hover:border-primario group-hover:border-2 transition duration-200 focus:outline-0 active:scale-95
-           {% if importante %}h-12 w-full px-5{% else %}h-10 w-60 px-4{% endif %}"
+           class="bg-white border border-borde-gris rounded-xl placeholder:text-placeholder group-hover:border-primario group-hover:border-2 transition duration-200 focus:outline-0 active:scale-95 {% if importante %}h-12 w-full px-5{% else %}h-10 w-60 px-4{% endif %}"
            {% if name %}name="{{ name }}"{% endif %}
            {% if placeholder %}placeholder="{{ placeholder }}"{% endif %}
            {% if value %}value="{{ value }}"{% endif %}
@@ -29,8 +27,7 @@
     <input type="password"
            minlenght="8"
            placeholder="********"
-           class="bg-white border border-borde-gris rounded-xl placeholder:text-placeholder group-hover:border-primario group-hover:border-2 transition duration-200 focus:outline-0 active:scale-95
-           {% if importante %}h-12 w-full px-5{% else %}h-10 w-60 px-4{% endif %}"
+           class="bg-white border border-borde-gris rounded-xl placeholder:text-placeholder group-hover:border-primario group-hover:border-2 transition duration-200 focus:outline-0 active:scale-95 {% if importante %}h-12 w-full px-5{% else %}h-10 w-60 px-4{% endif %}"
            {% if name %}name="{{ name }}"{% endif %}
            {% if validacion %}pattern="^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]$"{% endif %}
            {% if required %}required{% endif %}>

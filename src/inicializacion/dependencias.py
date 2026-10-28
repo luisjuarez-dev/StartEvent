@@ -40,14 +40,15 @@ def componer_de_raiz(app: Flask) -> None:
     """
     persona_academica_repositorio = PersonaAcademicaRepositorio()
     comite_evento_repositorio = ComiteEventoRepositorio()
-    documento_evento_repositorio= DocumentoEventoRepositorio()
+    documento_evento_repositorio = DocumentoEventoRepositorio()
     startevent_servicio = StarteventServicio()
     autenticacion_servicio = AutenticadorServicio(
         persona_academica_repositorio
     )
 
-    eventos_servicio = EventosServicio(comite_evento_repositorio,
-                                       documento_evento_repositorio)
+    eventos_servicio = EventosServicio(
+        comite_evento_repositorio, documento_evento_repositorio
+    )
     archivos_servicio = ArchivoServicio()
     archivos_controlador = ArchivosControlador(archivos_servicio)
     startevent_controlador = StarteventControlador(startevent_servicio)

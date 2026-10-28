@@ -10,7 +10,7 @@ Note:
 from sqlalchemy import Boolean, String
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
-from src.enums import EstadoActivo, NivelEstudios, TipoInstitucion
+from src.enums import EstadoActivo, NivelEstudios
 from src.inicializacion.extenciones import db
 
 
@@ -109,12 +109,10 @@ class PersonaAcademica(db.Model):
     cubiculo: Mapped[str | None] = mapped_column(String(10), nullable=True)
     ruta_foto_perfil: Mapped[str] = mapped_column(String(200), nullable=True)
 
-
     nivel_estudios: Mapped[NivelEstudios | None]
     discapacidad: Mapped[str | None] = mapped_column(
         String(200), nullable=True
     )
-
 
     # Relaciones
     telefonos_persona: Mapped[list["TelefonoPersona"]] = relationship(  # pyright: ignore[reportUndefinedVariable]
@@ -179,7 +177,7 @@ class PersonaAcademica(db.Model):
         passive_deletes=True,
     )
 
-    biografias_ponente:  Mapped[list["BiografiaPonente"]] = relationship(  # pyright: ignore[reportUndefinedVariable]
+    biografias_ponente: Mapped[list["BiografiaPonente"]] = relationship(  # pyright: ignore[reportUndefinedVariable]
         back_populates="persona_academica",
         cascade="all, delete-orphan",
         passive_deletes=True,

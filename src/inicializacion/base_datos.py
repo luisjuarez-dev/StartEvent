@@ -22,6 +22,7 @@ def crear_base(app: Flask, db: SQLAlchemy) -> None:
         from src.schemas.asistencia import Asistencia
         from src.schemas.automovil import Automovil
         from src.schemas.autoridad import Autoridad
+        from src.schemas.bibliografia_ponente import BiografiaPonente
         from src.schemas.clasificacion_persona import ClasificacionPersona
         from src.schemas.codigo_contrasenia import CodigoContrasenia
         from src.schemas.color_evento import ColorEvento
@@ -42,6 +43,5 @@ def crear_base(app: Flask, db: SQLAlchemy) -> None:
         from src.schemas.requisicion import Requisicion
         from src.schemas.telefono_persona import TelefonoPersona
         from src.schemas.tema_evento import TemaEvento
-        from src.schemas.bibliografia_ponente import BiografiaPonente
 
         db.create_all()

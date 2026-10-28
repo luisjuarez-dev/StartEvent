@@ -13,6 +13,7 @@ ARCHIVO_EJECUTANDODSE = Path(__file__).resolve()  # config.py
 
 load_dotenv()
 
+
 class Config:
     """Clase base de configuración con variables comunes.
 
@@ -45,8 +46,7 @@ class Config:
     DIRECTORIO_DOCUMENTOS = DIRECTORIO_STARTEVENT / "Documentos"
     DIRECTORIO_BACKUP = DIRECTORIO_STARTEVENT / "Backups"
     DIRECTORIO_TEMPLATES = DIRECTORIO_STARTEVENT / "src" / "templates"
-    PIMIENTA=os.getenv("PIMIENTA")
-
+    PIMIENTA = os.getenv("PIMIENTA")
 
 
 class DevelopmentConfig(Config):
@@ -75,6 +75,7 @@ class ProductionConfig(Config):
     DEBUG = False
     JWT_COOKIE_SECURE = True
     SQLALCHEMY_DATABASE_URI = os.getenv("SQLALCHEMY_DATABASE_URI_PRODUCCION")
+
 
 class TestingConfig(Config):
     """Clase de configuración para el entorno de pruebas.

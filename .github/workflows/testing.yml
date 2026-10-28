@@ -16,7 +16,7 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: ${{ matrix.python-version }}
-          cache: 'pip' # Automatically caches your dependencies to speed up future runs
+          cache: 'pip' # Pone las dependencias en caché para ejecuciones posteriores más rápidas
 
       - name: Instalar dependencias
         run: pip install -r requirements.txt

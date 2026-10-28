@@ -6,7 +6,7 @@ Note:
 
 """
 
-from sqlalchemy import ForeignKey, String, Text
+from sqlalchemy import ForeignKey, String
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from src.enums import TipoInstitucion
@@ -45,7 +45,9 @@ class BiografiaPonente(db.Model):
 
     id_biografia_ponente: Mapped[int] = mapped_column(primary_key=True)
     id_persona_academica: Mapped[int] = mapped_column(
-        ForeignKey("persona_academica.id_persona_academica",ondelete="CASCADE")
+        ForeignKey(
+            "persona_academica.id_persona_academica", ondelete="CASCADE"
+        )
     )
     id_evento_academico: Mapped[int] = mapped_column(
         ForeignKey("evento_academico.id_evento_academico", ondelete="CASCADE")
@@ -56,9 +58,7 @@ class BiografiaPonente(db.Model):
         String(200), nullable=True
     )
     tipo_institucion: Mapped[TipoInstitucion | None]
-    ruta_foto: Mapped[str | None] = mapped_column(
-        String(200), nullable=True
-    )
+    ruta_foto: Mapped[str | None] = mapped_column(String(200), nullable=True)
 
     # Relaciones
     persona_academica: Mapped["PersonaAcademica"] = relationship(  # pyright: ignore[reportUndefinedVariable]

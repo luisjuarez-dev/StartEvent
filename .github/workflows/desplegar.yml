@@ -1,10 +1,10 @@
-name: Remote SSH Command
+name: Despliegue por SSH
 on: 
   push: 
     branches: [master]
 jobs:
-  build:
-    name: Build
+  Desplegar:
+    name: Despliegue
     runs-on: ubuntu-latest
     steps:
       - name: Execute remote SSH commands using password
