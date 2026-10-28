@@ -21,22 +21,13 @@ jobs:
       - name: Instalar dependencias
         run: pip install -r requirements.txt
       
-      - name: Prueba ls -a
-        run: ls
-
       - name: Crear archivo .env en directorio específico
         run: |
           cat <<EOF > .env
           SQLALCHEMY_DATABASE_URI_PRUEBA=${{ secrets.SQLALCHEMY_DATABASE_URI_PRUEBA }}
           JWT_SECRET_KEY=${{ secrets.JWT_SECRET_KEY }}
-          PIMIENTA_PRUEBA=${{ secrets.PIMIENTA_PRUEBA }}
+          PIMIENTA=${{ secrets.PIMIENTA_PRUEBA }}
           EOF
-
-      - name: Prueba2 ls -a
-        run: ls
-      
-      - name: Visualizar .env
-        run: cat .env
       
       - name: Ejecutar pruebas
         run: pytest -v
