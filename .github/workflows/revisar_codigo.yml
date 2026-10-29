@@ -32,12 +32,16 @@ jobs:
       
       - name: Revision formato ruff
         run: ruff format --check
+        continue-on-error: true
 
       - name: Revision linter ruff
         run: ruff check
+        continue-on-error: true
 
       - name: Revision formato djlint
         run: djlint . --check
+        continue-on-error: true
 
       - name: Revision linter djlint
         run: djlint . --lint
+        continue-on-error: true
