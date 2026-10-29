@@ -156,7 +156,7 @@ def registrar_comandos(app: Flask) -> None:
                 encoding="UTF8",
             )
         print(
-            f"{'-' * 45}\n\tAnalizando archivos HTML...\n{'-' * 45}{resultado3.stdout}",
+            f"{'-' * 45}\n\tAnalizando archivos HTML...\n{'-' * 45}{resultado3.stdout}{resultado3.stderr}",
             end="",
             flush=True,
         )  # noqa: T201
