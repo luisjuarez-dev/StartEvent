@@ -30,9 +30,14 @@ jobs:
           PIMIENTA=${{ secrets.PIMIENTA_PRUEBA }}
           EOF
       
-      - name: Revision completa
-        run: | 
-          echo "#########EMPEZANDO REVISION########"
-          flask format --no-corregir
-          echo "#########TERMINANDO REVISION########"
-          
+      - name: Revision formato ruff
+        run: ruff format --check
+
+      - name: Revision linter ruff
+        run: ruff check
+
+      - name: Revision formato djlint
+        run: djlint . --check
+
+      - name: Revision linter djlint
+        run: djlint . --lint
