@@ -162,14 +162,11 @@ def registrar_comandos(app: Flask) -> None:
         )  # noqa: T201
 
         if (
-            resultado1.stderr != 0
-            or resultado2.stderr != 0
-            or resultado3.stderr != 0
+            resultado1.returncode != 0
+            or resultado2.returncode != 0
+            or resultado3.returncode != 0
         ):
-            print(1)
-            return 1
-        print(0)
-        return 0
+            raise SystemExit(1)
 
     @app.cli.command("crear_base_prueba")
     def crear_base_prueba() -> None:

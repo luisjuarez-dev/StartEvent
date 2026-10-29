@@ -34,4 +34,5 @@ jobs:
         run: | 
           echo "#########EMPEZANDO REVISION########"
           flask format --no-corregir
-          echo "#########TERMINANDO REVISION########"  
+          echo "#########TERMINANDO REVISION########"
+          
