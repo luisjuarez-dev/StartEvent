@@ -97,23 +97,79 @@ def registrar_comandos(app: Flask) -> None:
             flask startevent format
 
         """
-        print(f"{'-' * 45}\n\tFormateando archivos python...\n{'-' * 45}\n", flush=True)  # noqa: T201
         if corregir:
-            subprocess.run(["ruff", "format"])
+            resultado1 = subprocess.run(
+                ["ruff", "format"],
+                capture_output=True,
+                text=True,
+                check=False,
+                encoding="UTF8",
+            )
         else:
-            subprocess.run(["ruff", "format", "--check"])
+            resultado1 = subprocess.run(
+                ["ruff", "format", "--check"],
+                capture_output=True,
+                text=True,
+                check=False,
+                encoding="UTF8",
+            )
+        print(
+            f"{'-' * 45}\n\tFormateando archivos python...\n{'-' * 45}\n{resultado1.stdout}",
+            flush=True,
+        )  # noqa: T201
 
-        print(f"{'-' * 45}\n\tAnalizando archivos python...\n{'-' * 45}\n", flush=True)  # noqa: T201
         if corregir:
-            subprocess.run(["ruff", "check", "--fix"])
+            resultado2 = subprocess.run(
+                ["ruff", "check", "--fix"],
+                capture_output=True,
+                text=True,
+                check=False,
+                encoding="UTF8",
+            )
         else:
-            subprocess.run(["ruff", "check"])
+            resultado2 = subprocess.run(
+                ["ruff", "check"],
+                capture_output=True,
+                text=True,
+                check=False,
+                encoding="UTF8",
+            )
+        print(
+            f"{'-' * 45}\n\tAnalizando archivos python...\n{'-' * 45}\n{resultado2.stdout}",
+            flush=True,
+        )  # noqa: T201
 
-        print(f"{'-' * 45}\n\tAnalizando archivos HTML...\n{'-' * 45}\n", flush=True)  # noqa: T201
         if corregir:
-            subprocess.run(["djlint", ".", "--reformat"])
+            resultado3 = subprocess.run(
+                ["djlint", ".", "--reformat"],
+                capture_output=True,
+                text=True,
+                check=False,
+                encoding="UTF8",
+            )
         else:
-            subprocess.run(["djlint", ".", "--check"])
+            resultado3 = subprocess.run(
+                ["djlint", ".", "--check"],
+                capture_output=True,
+                text=True,
+                check=False,
+                encoding="UTF8",
+            )
+        print(
+            f"{'-' * 45}\n\tAnalizando archivos HTML...\n{'-' * 45}{resultado3.stdout}",
+            end="",
+            flush=True,
+        )  # noqa: T201
+
+        if (
+            resultado1.stderr != 0
+            or resultado2.stderr != 0
+            or resultado3.stderr != 0
+        ):
+            print(1)
+            return 1
+        print(0)
+        return 0
 
     @app.cli.command("crear_base_prueba")
     def crear_base_prueba() -> None:

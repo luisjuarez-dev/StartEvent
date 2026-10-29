@@ -1,4 +1,5 @@
-name: Revision de Co
+name: Revision de Codigo
+run-name: ${{ github.sha }} Revisión de Código 
 on: push
 env:
   FLASK_ENV: Testing
