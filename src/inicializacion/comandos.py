@@ -138,11 +138,14 @@ def registrar_comandos(app: Flask) -> None:
             f"{'-' * 45}\n\tAnalizando archivos python...\n{'-' * 45}\n{resultado2.stdout}",
             flush=True,
         )  # noqa: T201
-
+        print(
+            f"{'-' * 45}\n\tAnalizando archivos HTML...\n{'-' * 45}",
+            end="",
+            flush=True,
+        )  # noqa: T201
         if corregir:
             resultado3 = subprocess.run(
                 ["djlint", ".", "--reformat"],
-                capture_output=True,
                 text=True,
                 check=False,
                 encoding="UTF8",
@@ -150,16 +153,11 @@ def registrar_comandos(app: Flask) -> None:
         else:
             resultado3 = subprocess.run(
                 ["djlint", ".", "--check"],
-                capture_output=True,
                 text=True,
                 check=False,
                 encoding="UTF8",
             )
-        print(
-            f"{'-' * 45}\n\tAnalizando archivos HTML...\n{'-' * 45}\n{resultado3.stdout}\n{resultado3.stderr}",
-            end="",
-            flush=True,
-        )  # noqa: T201
+        
 
         if (
             resultado1.returncode != 0
