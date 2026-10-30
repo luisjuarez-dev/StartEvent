@@ -18,7 +18,7 @@ from src.inicializacion.base_datos import crear_base
 from src.inicializacion.extenciones import db
 
 
-def registrar_comandos(app: Flask) -> None:
+def registrar_comandos(app: Flask) -> None:  # noqa: C901
     """Registra comandos de utilidad en CLI en Flask.
 
     Registra los siguientes comandos para su uso en la terminal:
@@ -81,21 +81,17 @@ def registrar_comandos(app: Flask) -> None:
     @click.option("--corregir/--no-corregir", default=True)
     @click.option("--local/--no-local", default=True)
     def autoformatear(*, corregir: bool, local: bool) -> None:
-        """Formatea automáticamente el código de todo el proyecto.
+        """Formatea y revisa el código fuente de la aplicación.
 
-        Utiliza las herramientas de Ruff y Djlint para indicar los errores
-        según la configuración de pyproject.toml, corrige los que sea posible
-        y muestra el resto de los errores.
+        Args:
+            corregir (bool): Si es True, corrige los errores de formato y
+            estilo.
+            local (bool): Si es True, muestra los resultados en la terminal
+            local.
 
-        Note:
-            Equivalente a ejecutar
-            ruff format
-            ruff check --fix
-            djlint . --reformat
-            djlint . --check
-
-        Examples:
-            flask startevent format
+        Returns:
+            None: No retorna ningún valor, pero puede terminar la ejecución con
+            un código de error si ocurre algún fallo durante la revisión.
 
         """
         comandos_revision_y_correccion = [
@@ -134,7 +130,7 @@ def registrar_comandos(app: Flask) -> None:
 
         for i in range(len(comandos_ejecucion)):
             if local:
-                print(separadores_local[i])
+                print(separadores_local[i])  # noqa: T201
             resultados.append(
                 subprocess.run(
                     comandos_ejecucion[i],
@@ -149,31 +145,44 @@ def registrar_comandos(app: Flask) -> None:
             if error == 1:
                 raise SystemExit(1)
 
-    def mostrar_resultados(resultados: list):
+    def mostrar_resultados(resultados: list) -> int:
+        """Imprime un resumen de los resultados del comando flask format.
+
+        Args:
+            resultados (list): Lista de resultados de los comandos ejecutados.
+
+        Returns:
+            int: 1 si hubo errores, 0 si todo salió bien.
+
+        """
         error = 0
         if resultados[0].returncode != 0:
-            print("1.- ❌ Algo falló con el formateador de python Ruff\n")
+            print("1.- ❌ Algo falló con el formateador de python Ruff\n")  # noqa: T201
             error = 1
         else:
-            print("1.- ✅ El formateador de python Ruff finalizo correctamente\n")
+            print(  # noqa: T201
+                "1.- ✅ El formateador de python Ruff finalizo correctamente\n"
+            )
 
         if resultados[1].returncode != 0:
-            print("2.- ❌ Algo falló con el linter de python Ruff\n")
+            print("2.- ❌ Algo falló con el linter de python Ruff\n")  # noqa: T201
             error = 1
         else:
-            print("2.- ✅ El linter de python Ruff finalizo correctamente\n")
+            print("2.- ✅ El linter de python Ruff finalizo correctamente\n")  # noqa: T201
 
         if resultados[2].returncode != 0:
-            print("3.- ❌ Algo falló con el formateador de HTML Djlint")
+            print("3.- ❌ Algo falló con el formateador de HTML Djlint")  # noqa: T201
             error = 1
         else:
-            print("3.- ✅ El formateador de HTML Djlint finalizo correctamente\n")
+            print(  # noqa: T201
+                "3.- ✅ El formateador de HTML Djlint finalizo correctamente\n"
+            )
 
         if resultados[3].returncode != 0:
-            print("4.- ❌ Algo falló con el linter de HTML Djlint\n")
+            print("4.- ❌ Algo falló con el linter de HTML Djlint\n")  # noqa: T201
             error = 1
         else:
-            print("4.- ✅ El linter de Djlint finalizo correctamente\n")
+            print("4.- ✅ El linter de Djlint finalizo correctamente\n")  # noqa: T201
 
         return error
 
