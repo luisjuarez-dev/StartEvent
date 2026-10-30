@@ -140,6 +140,10 @@ def registrar_comandos(app: Flask) -> None:  # noqa: C901
                 )
             )
 
+
+
+
+
         if not local:
             error = mostrar_resultados(resultados)
             if error == 1:
