@@ -140,16 +140,12 @@ def registrar_comandos(app: Flask) -> None:  # noqa: C901
                 )
             )
 
-
-
-
-
         if not local:
             error = mostrar_resultados(resultados)
             if error == 1:
                 raise SystemExit(1)
 
-    def mostrar_resultados(resultados: list) -> int:
+    def mostrar_resultados(resultados) -> int:
         """Imprime un resumen de los resultados del comando flask format.
 
         Args:
