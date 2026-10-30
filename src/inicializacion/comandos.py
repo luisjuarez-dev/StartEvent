@@ -79,7 +79,8 @@ def registrar_comandos(app: Flask) -> None:
 
     @app.cli.command("format")
     @click.option("--corregir/--no-corregir", default=True)
-    def autoformatear(*, corregir: bool) -> None:
+    @click.option("--local/--no-local", default=True)
+    def autoformatear(*, corregir: bool, local: bool) -> None:
         """Formatea automáticamente el código de todo el proyecto.
 
         Utiliza las herramientas de Ruff y Djlint para indicar los errores
@@ -97,74 +98,84 @@ def registrar_comandos(app: Flask) -> None:
             flask startevent format
 
         """
-        if corregir:
-            resultado1 = subprocess.run(
-                ["ruff", "format"],
-                capture_output=True,
-                text=True,
-                check=False,
-                encoding="UTF8",
-            )
-        else:
-            resultado1 = subprocess.run(
-                ["ruff", "format", "--check"],
-                capture_output=True,
-                text=True,
-                check=False,
-                encoding="UTF8",
-            )
-        print(
-            f"{'-' * 45}\n\tFormateando archivos python...\n{'-' * 45}\n{resultado1.stdout}",
-            flush=True,
-        )  # noqa: T201
+        comandos_revision_y_correccion = [
+            ["ruff", "format"],  # Corrige con el formeador de Python
+            ["ruff", "check", "--fix"],  # Corrige con el linter de Python
+            [
+                "djlint",
+                ".",
+                "--reformat",
+            ],  # Corrige con el formateador de HTML
+        ]
+        comandos_revision = [
+            ["ruff", "format", "--check"],  # Revisa con el formeador de Python
+            ["ruff", "check"],  # Revisa con el linter de Python
+            ["djlint", ".", "--check"],  # Revisa con el formateador de HTML
+        ]
+        comandos_ejecucion = []
+        capturar_output = (False, False)
+        resultados = []
+        separadores_local = [
+            f"{'-' * 45}\n\tFormateando archivos python...\n{'-' * 45}\n",
+            f"{'-' * 45}\n\tAnalizando archivos python...\n{'-' * 45}\n",
+            f"{'-' * 45}\n\tFormateando archivos HTML...\n{'-' * 45}\n",
+            f"{'-' * 45}\n\tAnalizando archivos HTML...\n{'-' * 45}\n",
+        ]
 
         if corregir:
-            resultado2 = subprocess.run(
-                ["ruff", "check", "--fix"],
-                capture_output=True,
-                text=True,
-                check=False,
-                encoding="UTF8",
-            )
+            comandos_ejecucion = comandos_revision_y_correccion
         else:
-            resultado2 = subprocess.run(
-                ["ruff", "check"],
-                capture_output=True,
-                text=True,
-                check=False,
-                encoding="UTF8",
-            )
-        print(
-            f"{'-' * 45}\n\tAnalizando archivos python...\n{'-' * 45}\n{resultado2.stdout}",
-            flush=True,
-        )  # noqa: T201
-        print(
-            f"{'-' * 45}\n\tAnalizando archivos HTML...\n{'-' * 45}",
-            end="",
-            flush=True,
-        )  # noqa: T201
-        if corregir:
-            resultado3 = subprocess.run(
-                ["djlint", ".", "--reformat"],
-                text=True,
-                check=False,
-                encoding="UTF8",
-            )
-        else:
-            resultado3 = subprocess.run(
-                ["djlint", ".", "--check"],
-                text=True,
-                check=False,
-                encoding="UTF8",
-            )
-        
+            comandos_ejecucion = comandos_revision
+        comandos_ejecucion.append(
+            ["djlint", ".", "--lint"]
+        )  # Revisa con el linter de HTML
+        if not local:
+            capturar_output = (True, True)
 
-        if (
-            resultado1.returncode != 0
-            or resultado2.returncode != 0
-            or resultado3.returncode != 0
-        ):
-            raise SystemExit(1)
+        for i in range(len(comandos_ejecucion)):
+            if local:
+                print(separadores_local[i])
+            resultados.append(
+                subprocess.run(
+                    comandos_ejecucion[i],
+                    capture_output=capturar_output[0],
+                    text=capturar_output[1],
+                    encoding="UTF8",
+                )
+            )
+
+        if not local:
+            error = mostrar_resultados(resultados)
+            if error == 1:
+                raise SystemExit(1)
+
+    def mostrar_resultados(resultados: list):
+        error = 0
+        if resultados[0].returncode != 0:
+            print("1.- ❌ Algo falló con el formateador de python Ruff\n")
+            error = 1
+        else:
+            print("1.- ✅ El formateador de python Ruff finalizo correctamente\n")
+
+        if resultados[1].returncode != 0:
+            print("2.- ❌ Algo falló con el linter de python Ruff\n")
+            error = 1
+        else:
+            print("2.- ✅ El linter de python Ruff finalizo correctamente\n")
+
+        if resultados[2].returncode != 0:
+            print("3.- ❌ Algo falló con el formateador de HTML Djlint")
+            error = 1
+        else:
+            print("3.- ✅ El formateador de HTML Djlint finalizo correctamente\n")
+
+        if resultados[3].returncode != 0:
+            print("4.- ❌ Algo falló con el linter de HTML Djlint\n")
+            error = 1
+        else:
+            print("4.- ✅ El linter de Djlint finalizo correctamente\n")
+
+        return error
 
     @app.cli.command("crear_base_prueba")
     def crear_base_prueba() -> None:
@@ -178,26 +189,3 @@ def registrar_comandos(app: Flask) -> None:
         sql = archivo.read()
         db.session.execute(text(sql))
         db.session.commit()
-
-
-"""
-import subprocess
-
-resultado = subprocess.run(
-    ["ruff", "format"],
-    capture_output=True,
-    text=True,  # devuelve str en lugar de bytes
-    check=False,  # no lanza excepción si falla
-)
-
-# ruff format escribe casi todo por stderr
-if resultado.stdout:
-    print("── stdout ──")
-    print(resultado.stdout)
-
-if resultado.stderr:
-    print("── stderr ──")
-    print(resultado.stderr)
-
-print(f"Código de salida: {resultado.returncode}")
-"""
