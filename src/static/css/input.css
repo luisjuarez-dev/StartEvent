@@ -44,7 +44,7 @@
     @apply h-screen w-full flex flex-col font-roboto bg-fondo;
   }
   h1 {
-    @apply font-roboto-serif text-5xl font-bold font-stretch-condensed text-center my-5;
+    @apply font-roboto-serif text-5xl font-bold font-stretch-condensed text-center;
   }
   h2 {
     @apply font-roboto-serif text-3xl font-semibold font-stretch-semi-condensed my-2;
