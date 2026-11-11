@@ -75,3 +75,7 @@ class EventosControlador:
 
         """
         return '<div id="div-modal" class="absolute left-0 top-0 z-20"></div>'
+
+    def renderizar_wizard(self) -> str:
+        """Renderiza el wizard para crear un nuevo evento."""
+        return render_template("wizard_evento.html")

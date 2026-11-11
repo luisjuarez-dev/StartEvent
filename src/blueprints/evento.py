@@ -67,4 +67,8 @@ def crear_evento_blueprint(controlador: EventosControlador) -> Blueprint:
         """
         return controlador.renderizar_modal_vacia()
 
+    @evento_academico_bp.route("crear_evento")
+    def wizard_evento() -> str:
+        return controlador.renderizar_wizard()
+
     return evento_academico_bp
