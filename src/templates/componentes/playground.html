@@ -5,19 +5,19 @@
 {% block body %}
   <main class="px-24 py-10">
     <header>
-      <h1>Demo de componentes</h1>
+      <h1 class="my-5">Demo de componentes</h1>
       <p>Esta es una página demo que muestra como se usan todos los componentes del sistema. Si se crean nuevos componentes deberían ser agregados aquí.</p>
     </header>
     <section>
-      <h2>Componentes de botones</h2>
-      <h3>Botones principales</h3>
+      <h2 class="my-2">Componentes de botones</h2>
+      <h3 class="my-2">Botones principales</h3>
       <div class="flex h-full w-full items-center gap-2">
         {{ b.boton(texto="Botón primario") }}
         {{ b.boton(texto="Botón secundario", tipo="secundario") }}
         {{ b.boton(texto="Botón submit", tipo="submit") }}
         {{ b.boton(texto="Botón peligro", tipo="peligro") }}
       </div>
-      <h3>Botones íconos</h3>
+      <h3 class="my-2">Botones íconos</h3>
       <ul class="list-disc">
         <li><span>agregar: </span>{{ b.boton_icono(id="agregar") }}</li>
         <li><span>editar: </span>{{ b.boton_icono(id="editar") }}</li>
@@ -42,7 +42,7 @@
       </ul>
     </section>
     <section>
-      <h2>Componentes input de formulario</h2>
+      <h2 class="my-2">Componentes input de formulario</h2>
       <div class="flex flex-col gap-2">
         {{ input_texto(label="Input de texto", placeholder="Ingresa un texto") }}
         <!-- IMPORTANTE: Se deben pasar los argumentos de fecha con el formato "aaaa-mm-dd" -->

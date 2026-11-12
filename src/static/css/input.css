@@ -47,10 +47,10 @@
     @apply font-roboto-serif text-5xl font-bold font-stretch-condensed text-center;
   }
   h2 {
-    @apply font-roboto-serif text-3xl font-semibold font-stretch-semi-condensed my-2;
+    @apply font-roboto-serif text-3xl font-semibold font-stretch-semi-condensed;
   }
   h3 {
-    @apply font-roboto-serif text-xl font-semibold font-stretch-semi-condensed my-2;
+    @apply font-roboto-serif text-xl font-semibold font-stretch-semi-condensed;
   }
   p, span, label {
     @apply text-base font-stretch-semi-expanded;
