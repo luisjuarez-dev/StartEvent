@@ -1,42 +1,13 @@
 {% extends "layout_vertical.html" %}
-{% from "componentes/botones.html" import boton %}
+{% import "componentes/wizards.html" as w %}
 {% block main %}
 <div class="flex flex-col h-full w-full gap-3">
   <h1 class="my-0">Crear_evento</h1>
-  <div class="relative my-5">
-    <hr class="relative left-0 top-6 w-full -translate-y-1/2 m-0 border-gray-300 rounded-full">
-    <ol class="relative z-10 flex justify-between">
-      <li class="z-10 flex flex-col items-center gap-2">
-        <span class="flex size-12 items-center justify-center rounded-full bg-primario text-xl font-semibold text-white">1</span>
-        <span class="text-center text-sm">Nombre del paso</span>
-      </li>
-      <li class="z-10 flex flex-col items-center gap-2">
-        <span class="flex size-12 items-center justify-center rounded-full bg-primario text-xl font-semibold text-white">2</span>
-        <span class="text-center text-sm">Nombre del paso</span>
-      </li>
-      <li class="z-10 flex flex-col items-center gap-2">
-        <span class="flex size-12 items-center justify-center rounded-full bg-gray-300 text-xl font-semibold">3</span>
-        <span class="text-center text-sm">Nombre del paso</span>
-      </li>
-      <li class="z-10 flex flex-col items-center gap-2">
-        <span class="flex size-12 items-center justify-center rounded-full bg-gray-300 text-xl font-semibold">4</span>
-        <span class="text-center text-sm">Nombre del paso</span>
-      </li>
-      <li class="z-10 flex flex-col items-center gap-2">
-        <span class="flex size-12 items-center justify-center rounded-full bg-gray-300 text-xl font-semibold">5</span>
-        <span class="text-center text-sm">Nombre del paso</span>
-      </li>
-    </ol>
-  </div>
+  {% set labels=["Paso 1", "Paso 2", "Paso 3", "Paso 4", "Paso 5"] %}
+  {{ w.progreso(num_pasos=5, paso_actual=1, labels_pasos=labels) }}
   <section class="flex-1">
     Formulario aquí
   </section>
-  <div class="flex shrink-0">
-    {{ boton(texto="Anterior", tipo="secundario", clases="flex shrink-0") }}
-    <div class="flex-1"></div>
-    {{ boton(texto="Siguiente", clases="flex shrink-0") }}
-  </div>
-  
-</div>  
-  
+  {{ w.navegacion(num_pasos=5, paso_actual=1) }}
+</div>
 {% endblock %}

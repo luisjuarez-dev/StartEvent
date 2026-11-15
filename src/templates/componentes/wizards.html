@@ -1,0 +1,27 @@
+{% from "componentes/botones.html" import boton %}
+{% macro progreso(num_pasos, paso_actual, labels_pasos) %}
+  <div class="relative my-5">
+    <hr class="relative left-0 top-6 w-full -translate-y-1/2 m-0 border-gray-300 rounded-full">
+    <ol class="relative z-10 flex justify-between">
+      {% for i in range(num_pasos) %}
+        <li class="z-10 flex flex-col items-center gap-2">
+          <span class="flex size-12 items-center justify-center rounded-full text-xl font-semibold {% if i + 1 <= paso_actual %}bg-primario text-white {% else %}bg-gray-300{% endif %}">{{ i + 1 }}</span>
+          <span class="text-center text-sm">{{ labels_pasos[i] }}</span>
+        </li>
+      {% endfor %}
+    </ol>
+  </div>
+{% endmacro %}
+{% macro navegacion(num_pasos, paso_actual, url_siguiente, url_anterior="") %}
+  {% set label_boton = "Siguiente" %}
+  {% if paso_actual == num_pasos %}
+    {% set label_boton = "Finalizar" %}
+  {% endif %}
+  <div class="flex shrink-0">
+    {% if paso_actual != 1 %}
+      {{ boton(texto="Anterior", tipo="secundario", clases="flex shrink-0") }}
+    {% endif %}
+    <div class="flex-1"><!--Espacio vacio necesario--></div>
+    {{ boton(texto=label_boton, clases="flex shrink-0") }}
+  </div>
+{% endmacro %}
