@@ -8,6 +8,8 @@ from flask import (
     request,
 )
 
+from src.servicio.componentes import ComponentesServicio
+
 
 class ComponentesControlador:
     """Controlador para el blueprint de componentes.
@@ -15,6 +17,16 @@ class ComponentesControlador:
     Atiende peticiones relacionadas al funcionamiento dinámico de los
     componentes
     """
+
+    def __init__(self, servicio: ComponentesServicio) -> None:
+            """Inicializa el controlador con el servicio de componentes.
+
+            Args:
+                servicio (ComponentesServicio): instancia del servicio de
+                componentes.
+
+            """
+            self._servicio = servicio
 
     def renderizar_playground(self) -> str:
         """Regresa el HTML de la página demo para los componentes."""
@@ -37,3 +49,11 @@ class ComponentesControlador:
         valor = request.args.get(nombre_input)
         label = request.args.get("label")
         return input_color_macro(label=label, name=nombre_input, value=valor)
+
+    def renderizar_siguiente_formulario_evento(self, paso_actual: int) -> str:
+        """Renderiza el siguiente formulario del wizard de evento."""
+        return self._servicio.cambiar_siguiente_formulario_evento(paso_actual)
+
+    def renderizar_anterior_formulario_evento(self, paso_actual: int) -> str:
+        """Renderiza el anterior formulario del wizard de evento."""
+        return self._servicio.cambiar_anterior_formulario_evento(paso_actual)

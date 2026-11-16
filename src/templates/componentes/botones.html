@@ -1,7 +1,9 @@
-{% macro boton(texto, tipo="primario", tam="md", clases="") %}
+{% macro boton(texto, tipo="primario", tam="md", clases="", id="", hx_ruta="", hx_target="") %}
   <button class="flex items-center justify-center rounded-xl truncate px-3 font-semibold text-nowrap transition duration-300 hover:shadow-lg active:scale-95 {%- if tam == "sm" %} h-10 w-30 {%- elif tam == "md" %} h-10 w-60 {%- elif tam == "lg" %} h-12 w-full {%- endif %} {%- if tipo == "primario" or tipo == "submit" %} bg-primario text-white hover:bg-primario-enfoque hover:shadow-sombra/50 {%- elif tipo == "secundario" %} border-2 border-primario text-primario hover:text-white transition hover:bg-primario hover:shadow-sombra-secundario/50 {%- elif tipo == "peligro" %} border-2 border-peligro text-peligro hover:text-white transition hover:bg-peligro hover:shadow-sombra-peligro {%- endif %}
   {%- if clases %}clases{% endif %}"
-          type="{{ 'submit' if tipo == 'submit' else 'button' }}">{{ texto }}</button>
+          type="{{ 'submit' if tipo == 'submit' else 'button' }}"
+          {% if hx_ruta %}hx-get="{{ hx_ruta }}"{% endif %}
+          {% if hx_target %}hx-target="{{ hx_target }}"{% endif %}>{{ texto }}</button>
 {% endmacro %}
 <!--
 <button class="btn-icono transicion-flotar w-24 h-24" type="button">

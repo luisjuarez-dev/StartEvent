@@ -6,7 +6,7 @@ Note:
 
 """
 
-from flask import Blueprint
+from flask import Blueprint, Response
 from flask import current_app as app
 
 from src.controlador.componentes import ComponentesControlador
@@ -40,12 +40,22 @@ def crear_componentes_blueprint(
         return controlador.renderizar_playground()
 
     @componentes_bp.get("/input/color")
-    def color_actualiza_texto() -> str:
+    def color_actualiza_texto() -> str | Response:
         """Hace dinámico el componente de input color.
 
         Sincroniza el <input type="color"> y el <input type="text"> del
         componente de input de color para formularios
         """
         return controlador.renderizar_input_color()
+
+    @componentes_bp.get("/wizard/evento/siguiente/<int:paso_actual>")
+    def wizard_evento_siguiente(paso_actual: int) -> str:
+        """Hace dinámico el botón de siguiente del wizard de evento."""
+        return controlador.renderizar_siguiente_formulario_evento(paso_actual)
+
+    @componentes_bp.get("/wizard/evento/anterior/<int:paso_actual>")
+    def wizard_evento_anterior(paso_actual: int) -> str:
+        """Hace dinámico el botón de anterior del wizard de evento."""
+        return controlador.renderizar_anterior_formulario_evento(paso_actual)
 
     return componentes_bp

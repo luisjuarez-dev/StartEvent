@@ -1,6 +1,6 @@
 {% from "componentes/botones.html" import boton %}
 {% macro progreso(num_pasos, paso_actual, labels_pasos) %}
-  <div class="relative my-5">
+  <div id="wiz-progreso" class="relative my-5">
     <hr class="relative left-0 top-6 w-full -translate-y-1/2 m-0 border-gray-300 rounded-full">
     <ol class="relative z-10 flex justify-between">
       {% for i in range(num_pasos) %}
@@ -12,16 +12,16 @@
     </ol>
   </div>
 {% endmacro %}
-{% macro navegacion(num_pasos, paso_actual, url_siguiente, url_anterior="") %}
+{% macro navegacion(num_pasos, paso_actual, url_siguiente, url_anterior="", target_id="") %}
   {% set label_boton = "Siguiente" %}
   {% if paso_actual == num_pasos %}
     {% set label_boton = "Finalizar" %}
   {% endif %}
-  <div class="flex shrink-0">
-    {% if paso_actual != 1 %}
-      {{ boton(texto="Anterior", tipo="secundario", clases="flex shrink-0") }}
+  <div id="wiz-navegacion" class="flex shrink-0">
+    {% if paso_actual != 1 and url_anterior %}
+      {{ boton(texto="Anterior", tipo="secundario", clases="flex shrink-0", id="wiz-anterior", hx_ruta=url_anterior, hx_target=target_id) }}
     {% endif %}
     <div class="flex-1"><!--Espacio vacio necesario--></div>
-    {{ boton(texto=label_boton, clases="flex shrink-0") }}
+    {{ boton(texto=label_boton, clases="flex shrink-0", id="wiz-siguiente", hx_ruta=url_siguiente, hx_target=target_id) }}
   </div>
 {% endmacro %}

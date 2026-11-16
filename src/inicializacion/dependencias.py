@@ -22,6 +22,7 @@ from src.repositorio.documento_evento import DocumentoEventoRepositorio
 from src.repositorio.persona_academica import PersonaAcademicaRepositorio
 from src.servicio.archivos import ArchivoServicio
 from src.servicio.autenticacion import AutenticadorServicio
+from src.servicio.componentes import ComponentesServicio
 from src.servicio.evento import EventosServicio
 from src.servicio.startevent import StarteventServicio
 
@@ -45,6 +46,7 @@ def componer_de_raiz(app: Flask) -> None:
     autenticacion_servicio = AutenticadorServicio(
         persona_academica_repositorio
     )
+    componentes_servicio = ComponentesServicio()
 
     eventos_servicio = EventosServicio(
         comite_evento_repositorio, documento_evento_repositorio
@@ -52,7 +54,7 @@ def componer_de_raiz(app: Flask) -> None:
     archivos_servicio = ArchivoServicio()
     archivos_controlador = ArchivosControlador(archivos_servicio)
     startevent_controlador = StarteventControlador(startevent_servicio)
-    componentes_controlador = ComponentesControlador()
+    componentes_controlador = ComponentesControlador(componentes_servicio)
     autenticacion_controlador = AutenticacionControlador(
         autenticacion_servicio
     )
