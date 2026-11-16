@@ -22,9 +22,9 @@ from src.repositorio.documento_evento import DocumentoEventoRepositorio
 from src.repositorio.persona_academica import PersonaAcademicaRepositorio
 from src.servicio.archivos import ArchivoServicio
 from src.servicio.autenticacion import AutenticadorServicio
-from src.servicio.componentes import ComponentesServicio
 from src.servicio.evento import EventosServicio
 from src.servicio.startevent import StarteventServicio
+from src.servicio.wizard import WizardServicio
 
 
 def componer_de_raiz(app: Flask) -> None:
@@ -46,7 +46,7 @@ def componer_de_raiz(app: Flask) -> None:
     autenticacion_servicio = AutenticadorServicio(
         persona_academica_repositorio
     )
-    componentes_servicio = ComponentesServicio()
+    componentes_servicio = WizardServicio()
 
     eventos_servicio = EventosServicio(
         comite_evento_repositorio, documento_evento_repositorio

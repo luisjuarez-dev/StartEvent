@@ -8,7 +8,7 @@ from flask import (
     request,
 )
 
-from src.servicio.componentes import ComponentesServicio
+from src.servicio.wizard import WizardServicio
 
 
 class ComponentesControlador:
@@ -18,15 +18,15 @@ class ComponentesControlador:
     componentes
     """
 
-    def __init__(self, servicio: ComponentesServicio) -> None:
-            """Inicializa el controlador con el servicio de componentes.
+    def __init__(self, servicio_wizard: WizardServicio) -> None:
+        """Inicializa el controlador con el servicio de componentes.
 
-            Args:
-                servicio (ComponentesServicio): instancia del servicio de
-                componentes.
+        Args:
+            servicio_wizard (ComponentesServicio): instancia del servicio de
+            componentes.
 
-            """
-            self._servicio = servicio
+        """
+        self._servicio_wizard = servicio_wizard
 
     def renderizar_playground(self) -> str:
         """Regresa el HTML de la página demo para los componentes."""
@@ -52,8 +52,8 @@ class ComponentesControlador:
 
     def renderizar_siguiente_formulario_evento(self, paso_actual: int) -> str:
         """Renderiza el siguiente formulario del wizard de evento."""
-        return self._servicio.cambiar_siguiente_formulario_evento(paso_actual)
+        return self._servicio_wizard.siguiente("evento", paso_actual)
 
     def renderizar_anterior_formulario_evento(self, paso_actual: int) -> str:
         """Renderiza el anterior formulario del wizard de evento."""
-        return self._servicio.cambiar_anterior_formulario_evento(paso_actual)
+        return self._servicio_wizard.anterior("evento", paso_actual)
