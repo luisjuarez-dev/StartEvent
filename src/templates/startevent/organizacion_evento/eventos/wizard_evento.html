@@ -3,10 +3,8 @@
 {% block main %}
   <div class="flex flex-col h-full w-full gap-3">
     <h1 class="my-0">Crear_evento</h1>
-    {% set url_s = url_for('componentes.wizard_evento_siguiente', paso_actual=1) %}
-    {% set url_a = url_for('componentes.wizard_evento_anterior', paso_actual=1) %}
     {{ w.progreso(num_pasos=total_pasos, paso_actual=1, labels_pasos=nombres_pasos) }}
-    {{ w.form(template="organizacion_evento/eventos/form_calendario.html") }}
-    {{ w.navegacion(num_pasos=total_pasos, paso_actual=1, url_siguiente=url_s, url_anterior=url_a) }}
+    {{ w.form(template=primer_template) }}
+    {{ w.navegacion(num_pasos=total_pasos, paso_actual=1, url_siguiente=url_for('componentes.wizard_evento_siguiente', paso_actual=1)) }}
   </div>
 {% endblock %}

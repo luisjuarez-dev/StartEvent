@@ -101,6 +101,9 @@ class ComponentesControlador:
             "wizard_evento.html",
             total_pasos=self._servicio_wizard.get_total_pasos(wizard="evento"),
             nombres_pasos=self._servicio_wizard.get_pasos(wizard="evento"),
+            primer_formulario=self._servicio_wizard.get_form(
+                wizard="evento", paso_actual=1
+            ),
         )
 
     def renderizar_siguiente_formulario_evento(self, paso_actual: int) -> str:
