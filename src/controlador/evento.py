@@ -3,8 +3,9 @@
 Maneja las peticiones relacionadas con eventos académicos y usuarios logeados.
 """
 
-from flask import render_template
+from flask import redirect, render_template, url_for
 from flask_jwt_extended import current_user
+from werkzeug import Response
 
 from src.dto.evento import BuscarEventosUsuarioDto, MostrarEventoDto
 from src.dto.persona_academica import MostrarInformacionUsuarioDto
@@ -76,6 +77,6 @@ class EventosControlador:
         """
         return '<div id="div-modal" class="absolute left-0 top-0 z-20"></div>'
 
-    def renderizar_wizard(self) -> str:
+    def renderizar_wizard(self) -> Response:
         """Renderiza el wizard para crear un nuevo evento."""
-        return render_template("wizard_evento.html")
+        return redirect(url_for("componentes.renderizar_wizard_evento"))

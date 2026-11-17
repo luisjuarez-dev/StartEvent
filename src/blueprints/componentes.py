@@ -58,4 +58,9 @@ def crear_componentes_blueprint(
         """Hace dinámico el botón de anterior del wizard de evento."""
         return controlador.renderizar_anterior_formulario_evento(paso_actual)
 
+    @componentes_bp.route("/wizard/evento")
+    def renderizar_wizard_evento() -> str:
+        """Renderiza el wizard de crear evento."""
+        return controlador.renderizar_wizard_evento_template()
+
     return componentes_bp

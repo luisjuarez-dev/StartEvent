@@ -46,7 +46,7 @@ def componer_de_raiz(app: Flask) -> None:
     autenticacion_servicio = AutenticadorServicio(
         persona_academica_repositorio
     )
-    componentes_servicio = WizardServicio()
+    wizard_servicio = WizardServicio()
 
     eventos_servicio = EventosServicio(
         comite_evento_repositorio, documento_evento_repositorio
@@ -54,7 +54,7 @@ def componer_de_raiz(app: Flask) -> None:
     archivos_servicio = ArchivoServicio()
     archivos_controlador = ArchivosControlador(archivos_servicio)
     startevent_controlador = StarteventControlador(startevent_servicio)
-    componentes_controlador = ComponentesControlador(componentes_servicio)
+    componentes_controlador = ComponentesControlador(wizard_servicio)
     autenticacion_controlador = AutenticacionControlador(
         autenticacion_servicio
     )
