@@ -1,14 +1,13 @@
 """Controlador para peticiones sobre los componentes de jinja y tailwind."""
 
 from flask import (
-    Response,
     get_template_attribute,
     make_response,
-    redirect,
     render_template,
     request,
     url_for,
 )
+from werkzeug import Response
 
 from src.interfaces.servicio import WizardServicioI
 from src.servicio.excepciones import IndiceWizardError
@@ -39,9 +38,9 @@ class ComponentesControlador:
         """Renderiza un input tipo color.
 
         Returns:
-            str | Response: HTML de un input de color con el valor asignado o un
-            codigo de status 204 para que htmx ignore la respuesta si hubo un
-            error
+            str | Response: HTML de un input de color con el valor asignado o
+            un codigo de status 204 para que htmx ignore la respuesta si hubo
+            un error
 
         """
         nombre_input = request.headers.get("HX-Trigger-Name")
@@ -71,6 +70,12 @@ class ComponentesControlador:
         """
         wizard = "evento"
         n_pasos = self._servicio_wizard.get_total_pasos(wizard)
+        if paso == n_pasos + 1:
+            response = make_response()
+            response.headers["Hx-Redirect"] = url_for(
+                "startevent.actividades.renderizar_buzon_ponencias"
+            )
+            return response
         try:
             form_template = self._servicio_wizard.get_form(wizard, paso)
         except IndiceWizardError:

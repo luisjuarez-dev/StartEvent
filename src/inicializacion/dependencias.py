@@ -7,11 +7,13 @@ aplicación Flask.
 
 from flask import Flask
 
+from src.blueprints.actividad import crear_actividad_blueprint
 from src.blueprints.archivos import crear_archivos_blueprint
 from src.blueprints.autenticacion import crear_autenticacion_blueprint
 from src.blueprints.componentes import crear_componentes_blueprint
 from src.blueprints.evento import crear_evento_blueprint
 from src.blueprints.startevent import crear_startevent_blueprint
+from src.controlador.actividad import ActividadControlador
 from src.controlador.archivos import ArchivosControlador
 from src.controlador.autenticacion import AutenticacionControlador
 from src.controlador.componentes import ComponentesControlador
@@ -52,6 +54,8 @@ def componer_de_raiz(app: Flask) -> None:
         comite_evento_repositorio, documento_evento_repositorio
     )
     archivos_servicio = ArchivoServicio()
+
+    actividad_controlador = ActividadControlador()
     archivos_controlador = ArchivosControlador(archivos_servicio)
     startevent_controlador = StarteventControlador(startevent_servicio)
     componentes_controlador = ComponentesControlador(wizard_servicio)
@@ -61,6 +65,7 @@ def componer_de_raiz(app: Flask) -> None:
     evento_academico_controlador = EventosControlador(eventos_servicio)
 
     with app.app_context():
+        actividad_bp = crear_actividad_blueprint(actividad_controlador)
         archivos_bp = crear_archivos_blueprint(archivos_controlador)
         startevent_bp = crear_startevent_blueprint(startevent_controlador)
         autenticacion_bp = crear_autenticacion_blueprint(
@@ -71,6 +76,7 @@ def componer_de_raiz(app: Flask) -> None:
             evento_academico_controlador
         )
 
+        startevent_bp.register_blueprint(actividad_bp)
         startevent_bp.register_blueprint(autenticacion_bp)
         startevent_bp.register_blueprint(evento_academico_bp)
         app.register_blueprint(archivos_bp)

@@ -6,8 +6,9 @@ Note:
 
 """
 
-from flask import Blueprint, Response
+from flask import Blueprint
 from flask import current_app as app
+from werkzeug import Response
 
 from src.controlador.componentes import ComponentesControlador
 
