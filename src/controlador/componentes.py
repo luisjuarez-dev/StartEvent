@@ -3,7 +3,6 @@
 from flask import (
     get_template_attribute,
     make_response,
-    redirect,
     render_template,
     request,
     url_for,
@@ -132,14 +131,10 @@ class ComponentesControlador:
         self, paso_actual: int
     ) -> str | Response:
         """Renderiza el siguiente formulario del wizard de evento."""
-        return self._renderizar_wizard(
-            TipoWizard.EVENTO, paso_actual + 1
-        )
+        return self._renderizar_wizard(TipoWizard.EVENTO, paso_actual + 1)
 
     def renderizar_anterior_formulario_evento(
         self, paso_actual: int
     ) -> str | Response:
         """Renderiza el anterior formulario del wizard de evento."""
-        return self._renderizar_wizard(
-            TipoWizard.EVENTO, paso_actual - 1
-        )
+        return self._renderizar_wizard(TipoWizard.EVENTO, paso_actual - 1)
