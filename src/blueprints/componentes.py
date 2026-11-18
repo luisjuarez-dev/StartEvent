@@ -49,12 +49,12 @@ def crear_componentes_blueprint(
         return controlador.renderizar_input_color()
 
     @componentes_bp.get("/wizard/evento/siguiente/<int:paso_actual>")
-    def wizard_evento_siguiente(paso_actual: int) -> str:
+    def wizard_evento_siguiente(paso_actual: int) -> str | Response:
         """Hace dinámico el botón de siguiente del wizard de evento."""
         return controlador.renderizar_siguiente_formulario_evento(paso_actual)
 
     @componentes_bp.get("/wizard/evento/anterior/<int:paso_actual>")
-    def wizard_evento_anterior(paso_actual: int) -> str:
+    def wizard_evento_anterior(paso_actual: int) -> str | Response:
         """Hace dinámico el botón de anterior del wizard de evento."""
         return controlador.renderizar_anterior_formulario_evento(paso_actual)
 

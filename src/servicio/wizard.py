@@ -5,6 +5,7 @@ HTMX, este módulo atiende estas peticiones e implementa dicho funcionamiento
 """
 
 from src.interfaces.servicio import WizardServicioI
+from src.servicio.excepciones import IndiceWizardError
 
 
 class WizardServicio(WizardServicioI):
@@ -24,10 +25,17 @@ class WizardServicio(WizardServicioI):
                 "Imagenes Promocionales",
                 "Comité Organizador",
             ],
-        }
+        },
     }
 
     def get_form(self, wizard: str, paso_actual: int) -> str:  # noqa: D102
+        total_pasos = self.get_total_pasos(wizard)
+        if paso_actual < 1 or paso_actual > total_pasos:
+            raise (
+                IndiceWizardError(
+                    wizard=wizard, paso=paso_actual, paso_maximo=total_pasos
+                )
+            )
         return self._WIZARDS[wizard]["formularios"][paso_actual - 1]
 
     def get_total_pasos(self, wizard: str) -> int:  # noqa: D102
