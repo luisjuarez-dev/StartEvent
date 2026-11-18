@@ -206,3 +206,9 @@ class EstadoActivo(enum.Enum):
     ACTIVO = "Activo"
     INACTIVO = "Inactivo"
     PENDIENTE = "Pendiente"
+
+
+class TipoWizard(enum.Enum):
+    """Un wizard específico."""
+
+    EVENTO = "Evento"

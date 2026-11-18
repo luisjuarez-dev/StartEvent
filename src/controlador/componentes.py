@@ -3,12 +3,14 @@
 from flask import (
     get_template_attribute,
     make_response,
+    redirect,
     render_template,
     request,
     url_for,
 )
 from werkzeug import Response
 
+from src.enums import TipoWizard
 from src.interfaces.servicio import WizardServicioI
 from src.servicio.excepciones import IndiceWizardError
 
@@ -53,13 +55,16 @@ class ComponentesControlador:
         label = request.args.get("label")
         return input_color_macro(label=label, name=nombre_input, value=valor)
 
-    def renderizar_wizard_evento(self, paso: int) -> str | Response:
-        """Renderiza el wizard para crear evento en un paso concreto.
+    def _renderizar_wizard(
+        self, wizard: TipoWizard, paso: int
+    ) -> str | Response:
+        """Renderiza el wizard correspondiente en un paso concreto.
 
         Actualiza los botones para navegar entre pasos y el indicador del
         progreso total del wizard
 
         Args:
+            wizard (TipoWizard): El wizard que se va a renderizar
             paso (int): El paso del wizard que se va a renderizar
 
         Returns:
@@ -68,10 +73,9 @@ class ComponentesControlador:
             error
 
         """
-        wizard = "evento"
         n_pasos = self._servicio_wizard.get_total_pasos(wizard)
         if paso == n_pasos + 1:
-            response = make_response()
+            response = make_response("", 303)
             response.headers["Hx-Redirect"] = url_for(
                 "startevent.actividades.renderizar_buzon_ponencias"
             )
@@ -113,10 +117,14 @@ class ComponentesControlador:
         """Renderiza la template del wizard de evento."""
         return render_template(
             "wizard_evento.html",
-            total_pasos=self._servicio_wizard.get_total_pasos(wizard="evento"),
-            nombres_pasos=self._servicio_wizard.get_pasos(wizard="evento"),
+            total_pasos=self._servicio_wizard.get_total_pasos(
+                wizard=TipoWizard.EVENTO
+            ),
+            nombres_pasos=self._servicio_wizard.get_pasos(
+                wizard=TipoWizard.EVENTO
+            ),
             primer_formulario=self._servicio_wizard.get_form(
-                wizard="evento", paso_actual=1
+                wizard=TipoWizard.EVENTO, paso_actual=1
             ),
         )
 
@@ -124,10 +132,14 @@ class ComponentesControlador:
         self, paso_actual: int
     ) -> str | Response:
         """Renderiza el siguiente formulario del wizard de evento."""
-        return self.renderizar_wizard_evento(paso_actual + 1)
+        return self._renderizar_wizard(
+            TipoWizard.EVENTO, paso_actual + 1
+        )
 
     def renderizar_anterior_formulario_evento(
         self, paso_actual: int
     ) -> str | Response:
         """Renderiza el anterior formulario del wizard de evento."""
-        return self.renderizar_wizard_evento(paso_actual - 1)
+        return self._renderizar_wizard(
+            TipoWizard.EVENTO, paso_actual - 1
+        )
